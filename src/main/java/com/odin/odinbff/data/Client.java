@@ -1,8 +1,7 @@
-package com.odin.odinbff.database;
+package com.odin.odinbff.data;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Client {
@@ -22,7 +21,11 @@ public class Client {
     private Cpf cpf;
 
     public Client(Long id, String firstName, String familyName, Cpf cpf) {
+        this(firstName, familyName, cpf);
         this.id = id;
+    }
+
+    public Client(String firstName, String familyName, Cpf cpf) {
         this.firstName = firstName;
         this.familyName = familyName;
         this.cpf = cpf;
