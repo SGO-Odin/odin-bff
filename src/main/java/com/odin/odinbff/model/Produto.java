@@ -38,10 +38,12 @@ public class Produto {
     @Column(name = "fornecedor", length = 150)
 	private String fornecedor;
     
-    @Column(name = "ativo", unique = true )
-	private boolean ativo;
+    @Column(name = "ativo")
+    private boolean ativo;
+
+	
     
-    @Column(name = "controlarEstoque", unique = true )
+    @Column(name = "controlarEstoque")
 	private boolean controlarEstoque;
     
     @Column(name = "preco", precision = 16,scale = 2 )
