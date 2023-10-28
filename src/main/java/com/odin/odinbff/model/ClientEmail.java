@@ -6,18 +6,21 @@ import jakarta.persistence.*;
 public class ClientEmail {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne(optional = false)
     private Client client;
 
     @Embedded
-    @MapsId("email")
     private Email email;
 
     public ClientEmail() {
 
     }
 
-    public ClientEmail(Client client, String email) {
+    public ClientEmail(Long id, Client client, String email) {
+        this.id = id;
         this.client = client;
     }
 
@@ -27,5 +30,13 @@ public class ClientEmail {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Email getEmail() {
+        return email;
     }
 }
