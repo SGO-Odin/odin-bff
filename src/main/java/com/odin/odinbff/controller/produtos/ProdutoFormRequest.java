@@ -1,10 +1,10 @@
-package com.odin.odinbff.rest.produtos;
+package com.odin.odinbff.controller.produtos;
 
 import java.math.BigDecimal; 
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.odin.odinbff.model.Produto;;
+import com.odin.odinbff.model.Product;;
 
 public class ProdutoFormRequest {
 	
@@ -28,8 +28,8 @@ public class ProdutoFormRequest {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate cadastro;
 	
-	public Produto toModel() {
-		return new Produto(
+	public Product toModel() {
+		return new Product(
 				id,
 				referencia,
 				nome,
@@ -73,24 +73,24 @@ public class ProdutoFormRequest {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static ProdutoFormRequest fromModel(Produto produto) {
+	public static ProdutoFormRequest fromModel(Product product) {
 		return new ProdutoFormRequest(
-				produto.getId(),
-				produto.getFornecedor(),
-				produto.getNome(),
-				produto.getUn(),
-				produto.getGrifes(),
-				produto.getFornecedor(),
-				produto.isAtivo(),
-				produto.isControlarEstoque(),
-				produto.getPreco(),
-				produto.getLucroPorcentagem(),
-				produto.getLucro(),
-				produto.getVenda(),
-				produto.getEstAtual(),
-				produto.getEstMin(),
-				produto.getLocalizacao(),
-		        produto.getDataCadastro());
+				product.getId(),
+				product.getFornecedor(),
+				product.getNome(),
+				product.getUn(),
+				product.getGrifes(),
+				product.getFornecedor(),
+				product.isAtivo(),
+				product.isControlarEstoque(),
+				product.getPreco(),
+				product.getLucroPorcentagem(),
+				product.getLucro(),
+				product.getVenda(),
+				product.getEstAtual(),
+				product.getEstMin(),
+				product.getLocalizacao(),
+		        product.getDataCadastro());
 		
 	}
 	

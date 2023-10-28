@@ -3,20 +3,15 @@ package com.odin.odinbff.model;
 import java.math.BigDecimal;  
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "produto")
-
-public class Produto {
+public class Product {
 	
 	
 	@Id
@@ -72,9 +67,9 @@ public class Produto {
     
     
 
-	public Produto(String referencia, String nome, String un, String grifes, String fornecedor, boolean ativo,
-			boolean controlarEstoque, BigDecimal preco, BigDecimal lucroPorcentagem, BigDecimal lucro, BigDecimal venda,
-			String estAtual, String estMin, String localizacao) {
+	public Product(String referencia, String nome, String un, String grifes, String fornecedor, boolean ativo,
+				   boolean controlarEstoque, BigDecimal preco, BigDecimal lucroPorcentagem, BigDecimal lucro, BigDecimal venda,
+				   String estAtual, String estMin, String localizacao) {
 		super();
 		this.referencia = referencia;
 		this.nome = nome;
@@ -91,9 +86,9 @@ public class Produto {
 		this.estMin = estMin;
 		this.localizacao = localizacao;
 	}
-	public Produto(Long id, String referencia, String nome, String un, String grifes, String fornecedor, boolean ativo,
-			boolean controlarEstoque, BigDecimal preco, BigDecimal lucroPorcentagem, BigDecimal lucro, BigDecimal venda,
-			String estAtual, String estMin, String localizacao) {
+	public Product(Long id, String referencia, String nome, String un, String grifes, String fornecedor, boolean ativo,
+				   boolean controlarEstoque, BigDecimal preco, BigDecimal lucroPorcentagem, BigDecimal lucro, BigDecimal venda,
+				   String estAtual, String estMin, String localizacao) {
 		super();
 		this.id = id;
 		this.referencia = referencia;
@@ -112,7 +107,7 @@ public class Produto {
 		this.localizacao = localizacao;
 	}
 	
-	public Produto() {
+	public Product() {
 		super();
 	}
 	

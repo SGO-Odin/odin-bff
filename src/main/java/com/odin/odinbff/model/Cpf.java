@@ -1,4 +1,4 @@
-package com.odin.odinbff.database;
+package com.odin.odinbff.model;
 
 import jakarta.persistence.Embeddable;
 

@@ -1,4 +1,4 @@
-package com.odin.odinbff.model.repository;
+package com.odin.odinbff.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository; 
 

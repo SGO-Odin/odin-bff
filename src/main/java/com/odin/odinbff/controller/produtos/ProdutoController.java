@@ -1,10 +1,8 @@
-package com.odin.odinbff.rest.produtos;
+package com.odin.odinbff.controller.produtos;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.apache.coyote.Request; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.odin.odinbff.model.Produto;
-import com.odin.odinbff.model.repository.ProdutoRepository;
-import com.odin.odinbff.rest.produtos.ProdutoFormRequest;
+import com.odin.odinbff.model.Product;
+import com.odin.odinbff.repository.ProdutoRepository;
+
 @RestController
 @RequestMapping("/api/produtos")
 @CrossOrigin("*")
@@ -34,9 +32,9 @@ public class ProdutoController {
 	
 	@PostMapping
 	public ResponseEntity salvar(@RequestBody  ProdutoFormRequest request) {
-		Produto produto = request.toModel();
-		repository.save(produto);
-		return ResponseEntity.ok(ProdutoFormRequest.fromModel(produto));
+		Product product = request.toModel();
+		repository.save(product);
+		return ResponseEntity.ok(ProdutoFormRequest.fromModel(product));
 		
 	}
 

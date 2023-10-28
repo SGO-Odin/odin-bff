@@ -1,8 +1,6 @@
-package com.odin.odinbff.rest.grifes;
+package com.odin.odinbff.controller.grifes;
 
-import com.odin.odinbff.model.Grifes; 
-
-import jakarta.websocket.ClientEndpoint;
+import com.odin.odinbff.model.Grifes;
 
 public class GrifesFormRequest {
 	

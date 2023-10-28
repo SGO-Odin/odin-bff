@@ -1,4 +1,4 @@
-package com.odin.odinbff.rest.grifes;
+package com.odin.odinbff.controller.grifes;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.odin.odinbff.model.Grifes;
-import com.odin.odinbff.model.repository.GrifesRepository;
-import com.odin.odinbff.rest.produtos.ProdutoFormRequest;
+import com.odin.odinbff.repository.GrifesRepository;
 
 @RestController
 @RequestMapping("/api/grifes")
