@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+    sgo-odin-database:
+        image: mariadb
+        ports:
+            - "3307:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: "password"
+        volumes:
+            - ./local-database:/var/lib/mysql
