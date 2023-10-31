@@ -8,25 +8,25 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "grifes")
+@Table(name = "brands")
 
-public class Grifes {
+public class Brands {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
+	private String name;
 	
 	
 	
-	public Grifes() {
+	public Brands() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Grifes(Long id, String nome) {
+	public Brands(Long id, String name) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 	}
 	public Long getId() {
 		return id;
@@ -34,13 +34,10 @@ public class Grifes {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	
-
 }

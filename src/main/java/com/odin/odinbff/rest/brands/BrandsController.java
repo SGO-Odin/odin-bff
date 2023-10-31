@@ -1,6 +1,6 @@
-package com.odin.odinbff.rest.grifes;
+package com.odin.odinbff.rest.brands;
 
-import java.util.List;
+import java.util.List;  
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;  
@@ -12,32 +12,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.odin.odinbff.model.Grifes;
-import com.odin.odinbff.model.repository.GrifesRepository;
-import com.odin.odinbff.rest.produtos.ProdutoFormRequest;
+import com.odin.odinbff.model.Brands;
+import com.odin.odinbff.model.repository.BrandsRepository;
+import com.odin.odinbff.rest.products.ProductFormRequest;
 
 @RestController
-@RequestMapping("/api/grifes")
+@RequestMapping("/api/brands")
 @CrossOrigin("*")
 
-public class GrifesController {
+public class BrandsController {
 	@Autowired 
-	private GrifesRepository repository;
+	private BrandsRepository repository;
 	
 	@GetMapping
-	public List<GrifesFormRequest>getLista(){
+	public List<BrandsFormRequest>getList(){
 		return repository.findAll().stream()
-				.map(GrifesFormRequest::fromModel)
+				.map(BrandsFormRequest::fromModel)
 				.collect(Collectors.toList());
 	}
 	
 	
 	
 	@PostMapping
-	public ResponseEntity salvar(@RequestBody GrifesFormRequest request) {
-		Grifes grifes = request.toModel();
-		repository.save(grifes);
-		return ResponseEntity.ok(GrifesFormRequest.fromModel(grifes));
+	public ResponseEntity save(@RequestBody BrandsFormRequest request) {
+		Brands brands = request.toModel();
+		repository.save(brands);
+		return ResponseEntity.ok(BrandsFormRequest.fromModel(brands));
 		
 	}
 

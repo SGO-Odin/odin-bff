@@ -2,8 +2,8 @@ package com.odin.odinbff.model.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;  
 
-import com.odin.odinbff.model.Produto;
+import com.odin.odinbff.model.Product;
 
-public interface ProdutoRepository extends JpaRepository<Produto,Long >{
+public interface ProductRepository extends JpaRepository<Product, Long>{
 
 }
