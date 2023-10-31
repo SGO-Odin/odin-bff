@@ -3,15 +3,15 @@ package com.odin.odinbff.model;
 import jakarta.persistence.*;
 
 @Entity
-
-public class ClientEmail {
+public class ClientPhone {
 
     @EmbeddedId
     private final Pk id;
+
     private final Boolean isMain;
 
-    public ClientEmail(final Client client, final Email email, final Boolean isMain) {
-        this.id = new Pk(client, email);
+    public ClientPhone(final Client client, final Phone phone, final Boolean isMain) {
+        this.id = new Pk(client, phone);
         this.isMain = isMain;
     }
 
@@ -19,26 +19,24 @@ public class ClientEmail {
         return id.client;
     }
 
-    public Email getEmail() {
-        return id.email;
+    public Phone getPhone() {
+        return id.phone;
     }
 
-    public Boolean isMain() {
+    public Boolean getMain() {
         return isMain;
     }
 
     @Embeddable
     private static class Pk {
-
         @ManyToOne(optional = false)
         private final Client client;
-
         @Embedded
-        private final Email email;
+        private final Phone phone;
 
-        private Pk(final Client client, final Email email) {
+        private Pk(Client client, Phone phone) {
             this.client = client;
-            this.email = email;
+            this.phone = phone;
         }
     }
 }
