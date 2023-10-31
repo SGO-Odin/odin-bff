@@ -1,4 +1,4 @@
-package com.odin.odinbff.controller.products;
+package com.odin.odinbff.controller.product;
 
 import java.util.List;
 import java.util.stream.Collectors;

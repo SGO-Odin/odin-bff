@@ -1,4 +1,4 @@
-package com.odin.odinbff.controller.products;
+package com.odin.odinbff.controller.product;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
