@@ -1,8 +1,6 @@
-package com.odin.odinbff.rest.brands;
+package com.odin.odinbff.controller.brands;
 
-import com.odin.odinbff.model.Brands; 
-
-import jakarta.websocket.ClientEndpoint;
+import com.odin.odinbff.model.Brands;
 
 public class BrandsFormRequest {
 	
