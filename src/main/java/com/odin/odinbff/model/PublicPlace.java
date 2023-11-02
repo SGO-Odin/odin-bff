@@ -1,6 +1,5 @@
 package com.odin.odinbff.model;
 
-import com.odin.odinbff.model.type.PublicPlaceType;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,16 +8,14 @@ public class PublicPlace {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
-
-    @Enumerated(EnumType.STRING)
-    private PublicPlaceType type;
     private final String name;
-
     @ManyToOne(optional = false)
     private final District district;
+    @Enumerated(EnumType.STRING)
+    private final Types type;
 
 
-    public PublicPlace(Long id, String name,  PublicPlaceType type, District district) {
+    public PublicPlace(Long id, String name, Types type, District district) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -29,7 +26,7 @@ public class PublicPlace {
         return id;
     }
 
-    public PublicPlaceType getType() {
+    public Types getType() {
         return type;
     }
 
@@ -41,5 +38,7 @@ public class PublicPlace {
         return district;
     }
 
-
+    public enum Types {
+        AVENUE, PATHWAY, STREET, HIGHWAY, FARM
+    }
 }

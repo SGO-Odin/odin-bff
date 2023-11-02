@@ -14,19 +14,19 @@ public final class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final Long id;
 
     @NotBlank
-    private String firstName;
+    private final String firstName;
 
     @NotBlank
-    private String lastName;
+    private final String lastName;
 
     @Embedded
     @NotBlank
-    private Cpf cpf;
+    private final Cpf cpf;
 
-    private String rg;
+    private final String rg;
 
     @ManyToOne(optional = false)
     private final Address address;
