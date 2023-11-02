@@ -1,41 +1,29 @@
 package com.odin.odinbff.controller.brand;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.odinbff.model.Brand;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.web.bind.annotation.RequestBody;
 
-public class BrandFormRequest {
-	
-	private Long id;
-	private String name;
-	
-	
-	public BrandFormRequest(Long id, String name) {
-		super();
-		this.id = id;
+public final class BrandFormRequest {
+	private final String name;
+
+	@JsonCreator
+	public BrandFormRequest(final String name) {
 		this.name = name;
 	}
-	public BrandFormRequest() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
+	@NotBlank
+	@Length(min = Brand.Validations.Name.MIN_LENGTH, max = Brand.Validations.Name.MAX_LENGTH)
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public Brand toModel() {
-		
-		return new Brand(id, name);
-		
-	}
-	public static BrandFormRequest fromModel(Brand brand) {
-		return new BrandFormRequest(brand.getId(), brand.getName());
-	}
 
+	public Brand toModel() {
+		return new Brand(name);
+	}
 }

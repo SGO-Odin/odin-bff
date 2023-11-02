@@ -1,41 +1,46 @@
 package com.odin.odinbff.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name = "brands")
+public final class Brand {
 
-public class Brand {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String name;
-	
-	
-	
-	public Brand() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Brand(Long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false, length = Validations.Name.MAX_LENGTH, unique = true)
+    @Length(min = Validations.Name.MIN_LENGTH, max = Validations.Name.MAX_LENGTH)
+    private String name;
+
+    /**
+     * Not use. Requires by JPA.
+     */
+    @Deprecated
+    private Brand() {
+    }
+
+    public Brand(final String name) {
+        this.name = name;
+        this.id = null;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public static final class Validations {
+        public static final class Name {
+            public static final short MAX_LENGTH = 255;
+            public static final short MIN_LENGTH = 1;
+        }
+    }
 }
