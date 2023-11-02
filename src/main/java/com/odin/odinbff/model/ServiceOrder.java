@@ -101,8 +101,17 @@ public class ServiceOrder implements DiscountAndAdditionalPriceValue {
         return canceledOn;
     }
 
-    public BigDecimal calculateFinalPriceValue() {
-        return products.stream().map(ServiceOrderProduct::calculateFinalPriceValue).reduce(BigDecimal.ZERO, BigDecimal::add);
+    public BigDecimal calculateFinalPriceValue() throws IllegalStateException {
+        var totalSalePrice = products.stream()
+                .map(ServiceOrderProduct::calculateFinalPriceValue)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        if (totalSalePrice.compareTo(discountValue) < 0)
+            throw new IllegalStateException("Valor do desconto maior do que do que o valor total da ordem de serviço!");
+
+        return totalSalePrice
+                .add(additionalValue)
+                .subtract(discountValue);
     }
 
     public void addProduct(final Product product, final Short quantity, final BigDecimal salePrice) {
