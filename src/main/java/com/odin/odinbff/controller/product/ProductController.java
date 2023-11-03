@@ -3,6 +3,7 @@ package com.odin.odinbff.controller.product;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.repository.BrandRepository;
 import com.odin.odinbff.repository.PurveyorReposioty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import com.odin.odinbff.model.Product;
 import com.odin.odinbff.model.repository.ProductRepository;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping(Api.PRODUCT)
 @CrossOrigin("*")
 public class ProductController {
 	

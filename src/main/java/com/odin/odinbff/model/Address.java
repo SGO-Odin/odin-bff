@@ -8,7 +8,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private final PublicPlace publicPlace;
     private final Integer number;
 
@@ -17,6 +17,14 @@ public class Address {
     private final String reference;
     private final String complement;
 
+    /**
+     * Don't use. Requires by JPA.
+     */
+    @Deprecated
+    private Address() {
+        this(null, null, null, null, null);
+    }
+
     public Address(Long id, PublicPlace publicPlace, Integer number, ZipCode genericZipCode, String reference, String complement) {
         this.id = id;
         this.publicPlace = publicPlace;
@@ -24,6 +32,10 @@ public class Address {
         this.genericZipCode = genericZipCode;
         this.reference = reference;
         this.complement = complement;
+    }
+
+    public Address(PublicPlace publicPlace, Integer number, ZipCode genericZipCode, String reference, String complement) {
+        this(null, publicPlace, number, genericZipCode, reference, complement);
     }
 
     public Long getId() {

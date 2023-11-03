@@ -11,11 +11,23 @@ public class State {
     private final String acronym;
     private final Boolean isFederalDistrict;
 
-    public State(Long id, String name, String acronym, Boolean isFederalDistrict) {
+    private State(Long id, String name, String acronym, Boolean isFederalDistrict) {
         this.id = id;
         this.name = name;
         this.acronym = acronym;
         this.isFederalDistrict = isFederalDistrict;
+    }
+
+    /**
+     * Don't use. Requires by JPA.
+     */
+    @Deprecated
+    private State() {
+        this(null, null, null, null);
+    }
+
+    public State(String name, String acronym, Boolean isFederalDistrict) {
+        this(null, name, acronym, isFederalDistrict);
     }
 
     public Long getId() {

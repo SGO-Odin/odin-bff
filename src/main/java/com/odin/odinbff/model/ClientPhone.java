@@ -10,6 +10,14 @@ public class ClientPhone {
 
     private final Boolean isMain;
 
+    /**
+     * Don't use. Requires by JPA.
+     */
+    @Deprecated
+    private ClientPhone() {
+        this(null, null, null);
+    }
+
     public ClientPhone(final Client client, final Phone phone, final Boolean isMain) {
         this.id = new Pk(client, phone);
         this.isMain = isMain;
@@ -23,7 +31,7 @@ public class ClientPhone {
         return id.phone;
     }
 
-    public Boolean getMain() {
+    public Boolean isMain() {
         return isMain;
     }
 
@@ -33,6 +41,14 @@ public class ClientPhone {
         private final Client client;
         @Embedded
         private final Phone phone;
+
+        /**
+         * Don't use. Requires by JPA.
+         */
+        @Deprecated
+        private Pk() {
+            this(null, null);
+        }
 
         private Pk(Client client, Phone phone) {
             this.client = client;

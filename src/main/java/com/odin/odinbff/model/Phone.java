@@ -4,13 +4,21 @@ import com.odin.odinbff.util.MaskFormatter;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class Phone {
+public final class Phone {
     private final String ddd;
     private final String number;
 
-    private Phone(String ddd, String onlyNumber, String number) {
+    /**
+     * Don't use. Requires by JPA.
+     */
+    @Deprecated
+    private Phone() {
+        this(null, null);
+    }
+
+    public Phone(final String ddd, final String number) {
         this.ddd = ddd;
-        this.number = onlyNumber;
+        this.number = number;
     }
 
     public String getDdd() {
@@ -18,7 +26,11 @@ public class Phone {
     }
 
     public String getPrettyNumber() {
-        return new MaskFormatter("(##) #####-####").format(this.number);
+        return (new MaskFormatter("(##) #####-####").format(getFullNumber()));
+    }
+
+    public String getFullNumber(){
+        return ddd + number;
     }
 
     public String getNumber() {

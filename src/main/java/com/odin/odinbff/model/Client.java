@@ -2,10 +2,13 @@ package com.odin.odinbff.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,12 +26,12 @@ public final class Client {
     private final String lastName;
 
     @Embedded
-    @NotBlank
+    @NotNull
     private final Cpf cpf;
 
     private final String rg;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private final Address address;
 
     @CreationTimestamp
@@ -37,11 +40,19 @@ public final class Client {
     @UpdateTimestamp
     private final LocalDateTime updatedOn;
 
-    @OneToMany(mappedBy = "id.client", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id.client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final Set<ClientEmail> emails = new HashSet<>();
 
-    @OneToMany(mappedBy = "id.client")
+    @OneToMany(mappedBy = "id.client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final Set<ClientPhone> phones = new HashSet<>();
+
+    /**
+     * Don't use. Requires by JPA.
+     */
+    @Deprecated
+    private Client() {
+        this(null, null, null, null, null, null, null, null);
+    }
 
     public Client(String firstName,
                   String lastName,
@@ -65,15 +76,51 @@ public final class Client {
         this.updatedOn = updatedOn;
     }
 
-    public void addEmail(final ClientEmail email) {
-        emails.add(email);
+    public void addEmail(final String email) {
+        emails.add(new ClientEmail(this, new Email(email), false));
     }
 
-    public void addPhone(final ClientPhone phone) {
-        phones.add(phone);
+    public void addPhone(final Phone phone, final Boolean isMain) {
+        phones.add(new ClientPhone(this, phone, isMain));
     }
 
     public Long getId() {
         return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Cpf getCpf() {
+        return cpf;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public Set<ClientEmail> getEmails() {
+        return Collections.unmodifiableSet(emails);
+    }
+
+    public Set<ClientPhone> getPhones() {
+        return Collections.unmodifiableSet(phones);
     }
 }

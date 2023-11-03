@@ -10,6 +10,14 @@ public class ZipCode {
         this.zipCode = zipCode;
     }
 
+    /**
+     * Don't use. Requires by JPA.
+     */
+    @Deprecated
+    private ZipCode() {
+        this.zipCode = null;
+    }
+
     public String getZipCode() {
         return zipCode;
     }

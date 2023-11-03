@@ -1,5 +1,6 @@
 package com.odin.odinbff.controller.brand;
 
+import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.model.Brand;
 import com.odin.odinbff.repository.BrandRepository;
 import jakarta.validation.Valid;
@@ -12,8 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/brand")
-public class BrandController {
+@RequestMapping(Api.BRAND)
+public final class BrandController {
 
     private final BrandRepository brandRepository;
 

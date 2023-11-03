@@ -8,21 +8,26 @@ public final class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final Long id;
     @Column(nullable = false, length = Validations.Name.MAX_LENGTH, unique = true)
     @Length(min = Validations.Name.MIN_LENGTH, max = Validations.Name.MAX_LENGTH)
-    private String name;
+    private final String name;
 
     /**
-     * Not use. Requires by JPA.
+     * Don't use. Requires by JPA.
      */
     @Deprecated
     private Brand() {
+        this(null, null);
+    }
+
+    public Brand(Long id, final String name) {
+        this.name = name;
+        this.id = id;
     }
 
     public Brand(final String name) {
-        this.name = name;
-        this.id = null;
+        this(null, name);
     }
 
     public Long getId() {
@@ -31,10 +36,6 @@ public final class Brand {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public static final class Validations {

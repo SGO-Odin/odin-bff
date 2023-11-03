@@ -2,6 +2,8 @@ package com.odin.odinbff.model;
 
 import jakarta.persistence.*;
 
+import java.beans.ConstructorProperties;
+
 @Entity
 
 public class ClientEmail {
@@ -9,6 +11,14 @@ public class ClientEmail {
     @EmbeddedId
     private final Pk id;
     private final Boolean isMain;
+
+    /**
+     * Don't use. Requires by JPA.
+     */
+    @Deprecated
+    private ClientEmail() {
+        this(null, null, null);
+    }
 
     public ClientEmail(final Client client, final Email email, final Boolean isMain) {
         this.id = new Pk(client, email);
@@ -35,6 +45,14 @@ public class ClientEmail {
 
         @Embedded
         private final Email email;
+
+        /**
+         * Don't use. Requires by JPA.
+         */
+        @Deprecated
+        private Pk() {
+            this(null, null);
+        }
 
         private Pk(final Client client, final Email email) {
             this.client = client;
