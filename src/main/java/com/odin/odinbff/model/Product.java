@@ -58,7 +58,30 @@ public class Product {
     @UpdateTimestamp
     private final LocalDateTime updatedOn;
 
-    public Product(final Long id,
+    /**
+     * Don't use. Don't remove. Requires by JPA.
+     */
+    @Deprecated
+    private Product() {
+        this(null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+
+    private Product(final Long id,
                    final String reference,
                    final String name,
                    final UnitType unit,

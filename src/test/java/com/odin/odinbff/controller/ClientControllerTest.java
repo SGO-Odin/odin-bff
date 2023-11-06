@@ -14,10 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 
@@ -32,7 +35,7 @@ class ClientControllerTest extends BaseControllerTest {
     void when_post_a_valid_request_save_with_success() throws Exception {
         final ClientFormRequest clientFormRequest = new ClientFormRequest("FirstName",
                 "LastName",
-                "00000000000",
+                "35742819005",
                 "0000000000",
                 new AddressFormRequest(new PublicPlaceFormRequest("cityName",
                                 PublicPlace.Types.STREET.name(),
@@ -49,15 +52,21 @@ class ClientControllerTest extends BaseControllerTest {
                 Set.of("email1@email.com", "email2@email.com"),
                 Set.of(new PhoneFormRequest("33", "923456781", false)));
 
-        MockHttpServletResponse result = mvc.perform(post(Api.CLIENT)
+        MockHttpServletResponse result = mvc.perform(post(Api.Client.CLIENT_RESOURCE)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(clientRequestJson.write(clientFormRequest).getJson())
                         )
                 .andReturn()
                 .getResponse();
-        System.out.println(result.getContentAsString());
 
-        assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(result.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+
+        String expectedLocation = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path(Api.Client.CLIENT_READ_BY_ID)
+                .buildAndExpand(1).toUriString();
+
+        assertThat(result.getRedirectedUrl()).isEqualTo(expectedLocation);
+
     }
 
     @Test

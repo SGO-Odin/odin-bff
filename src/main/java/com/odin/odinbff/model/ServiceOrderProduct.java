@@ -20,6 +20,15 @@ public class ServiceOrderProduct {
     @Column(nullable = false)
     protected BigDecimal salePrice;
 
+    /**
+     * Don't use. Don't remove. Requires by JPA.
+     */
+    @Deprecated
+    private ServiceOrderProduct() {
+        this(null, null, null, null);
+    }
+
+
     public ServiceOrderProduct(ServiceOrder serviceOrder, Product product, Short quantity, BigDecimal salePrice) {
 
         this.serviceOrder = serviceOrder;

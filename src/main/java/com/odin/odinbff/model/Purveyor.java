@@ -2,11 +2,12 @@ package com.odin.odinbff.model;
 
 import jakarta.persistence.*;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Purveyor {
+public final class Purveyor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
@@ -15,14 +16,22 @@ public class Purveyor {
     private final String companyName;
     private final Boolean isLaboratory;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private final Address address;
 
-    @OneToMany(mappedBy = "id.purveyor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id.purveyor", cascade = CascadeType.ALL)
     private final Set<PurveyorPhone> phones = new HashSet<>();
 
-    @OneToMany(mappedBy = "id.purveyor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id.purveyor", cascade = CascadeType.ALL)
     private final Set<PurveyorEmail> emails = new HashSet<>();
+
+    /**
+     * Don't use. Don't remove. Requires by JPA.
+     */
+    @Deprecated
+    private Purveyor() {
+        this(null, null, null, null, null);
+    }
 
     public Purveyor(String tradingName, String companyName, Boolean isLaboratory, Address address) {
         this(null, tradingName, companyName, isLaboratory, address);
@@ -40,12 +49,12 @@ public class Purveyor {
         this.address = address;
     }
 
-    public void addEmail(final Email email) {
-        emails.add(new PurveyorEmail(this, email));
+    public void addEmail(final Email email, final Boolean isMain) {
+        emails.add(new PurveyorEmail(this, email, isMain));
     }
 
-    public void addPhone(final Phone phone) {
-        phones.add(new PurveyorPhone(this, phone));
+    public void addPhone(final Phone phone, final Boolean isMain) {
+        phones.add(new PurveyorPhone(this, phone, isMain));
     }
 
     public Long getId() {
@@ -60,7 +69,7 @@ public class Purveyor {
         return companyName;
     }
 
-    public Boolean getLaboratory() {
+    public Boolean isLaboratory() {
         return isLaboratory;
     }
 
@@ -69,10 +78,10 @@ public class Purveyor {
     }
 
     public Set<PurveyorPhone> getPhones() {
-        return phones;
+        return Collections.unmodifiableSet(phones);
     }
 
     public Set<PurveyorEmail> getEmails() {
-        return emails;
+        return Collections.unmodifiableSet(emails);
     }
 }

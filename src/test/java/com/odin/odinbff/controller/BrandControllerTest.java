@@ -30,7 +30,7 @@ class BrandControllerTest extends BaseControllerTest {
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     void when_post_a_valid_request_save_with_success() throws Exception {
-        MockHttpServletResponse result = mvc.perform(post(Api.BRAND)
+        MockHttpServletResponse result = mvc.perform(post(Api.Brand.BRAND_RESOURCE)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(brandRequestJson.write(new BrandFormRequest("Brand Success")).getJson()))
                 .andReturn()
@@ -44,7 +44,7 @@ class BrandControllerTest extends BaseControllerTest {
 
     @Test
     void when_post_a_invalid_request_return_bad_request() throws Exception {
-        MockHttpServletResponse result = mvc.perform(post(Api.BRAND)
+        MockHttpServletResponse result = mvc.perform(post(Api.Brand.BRAND_RESOURCE)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(""))
                 .andReturn()

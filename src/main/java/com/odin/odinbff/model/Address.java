@@ -18,7 +18,7 @@ public class Address {
     private final String complement;
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private Address() {

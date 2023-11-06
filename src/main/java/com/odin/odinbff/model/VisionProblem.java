@@ -32,6 +32,22 @@ public class VisionProblem {
     private final Float npd;
     private final Float height;
 
+    /**
+     * Don't use. Don't remove. Requires by JPA.
+     */
+    @Deprecated
+    private VisionProblem() {
+        this(null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+
     public VisionProblem(Prescription prescription,
                          Types type,
                          PositionOfEyesType positionOfEyes,

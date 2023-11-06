@@ -14,7 +14,7 @@ public final class Brand {
     private final String name;
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private Brand() {

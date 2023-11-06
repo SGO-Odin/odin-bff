@@ -19,7 +19,7 @@ public class ServiceOrder implements DiscountAndAdditionalPriceValue {
     private final BigDecimal discountValue;
     @Column(nullable = false, precision = 16, scale = 2)
     private final BigDecimal additionalValue;
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private final Prescription prescription;
     @Enumerated(EnumType.STRING)
     private final StatusType status;
@@ -33,6 +33,31 @@ public class ServiceOrder implements DiscountAndAdditionalPriceValue {
 
     @OneToMany(mappedBy = "serviceOrder")
     private final Set<ServiceOrderProduct> products = new HashSet<>();
+
+    /**
+     * Don't use. Don't remove. Requires by JPA.
+     */
+    @Deprecated
+    private ServiceOrder() {
+        this(null, null, null, null, null, null, null, null, null, null, null);
+    }
+
+    public ServiceOrder(final Client client,
+                        final BigDecimal discountValue,
+                        final BigDecimal additionalValue,
+                        final Prescription prescription){
+        this(null,
+                client,
+                discountValue,
+                additionalValue,
+                prescription,
+                StatusType.OPENED,
+                LocalDateTime.now(),
+                null,
+                null,
+                LocalDateTime.now(),
+                LocalDateTime.now());
+    }
 
     private ServiceOrder(final Long id,
                          final Client client,

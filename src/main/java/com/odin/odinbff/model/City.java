@@ -3,7 +3,7 @@ package com.odin.odinbff.model;
 import jakarta.persistence.*;
 
 @Entity
-public class City {
+public final class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
@@ -16,7 +16,7 @@ public class City {
     private final ZipCode genericZipCode;
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private City() {

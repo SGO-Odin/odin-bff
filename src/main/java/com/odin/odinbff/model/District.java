@@ -13,7 +13,7 @@ public class District {
     private final City city;
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private District() {

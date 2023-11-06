@@ -3,6 +3,7 @@ package com.odin.odinbff.controller.brand;
 import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.model.Brand;
 import com.odin.odinbff.repository.BrandRepository;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(Api.BRAND)
+@RequestMapping(Api.Brand.BRAND_RESOURCE)
 public final class BrandController {
 
     private final BrandRepository brandRepository;

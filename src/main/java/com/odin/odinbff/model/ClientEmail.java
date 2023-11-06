@@ -13,7 +13,7 @@ public class ClientEmail {
     private final Boolean isMain;
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private ClientEmail() {
@@ -47,7 +47,7 @@ public class ClientEmail {
         private final Email email;
 
         /**
-         * Don't use. Requires by JPA.
+         * Don't use. Don't remove. Requires by JPA.
          */
         @Deprecated
         private Pk() {

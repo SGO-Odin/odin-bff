@@ -7,13 +7,17 @@ import jakarta.persistence.Transient;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(Api.CLIENT)
+@RequestMapping(Api.Client.CLIENT_RESOURCE)
 public class ClientController {
 
     @Autowired
@@ -23,12 +27,27 @@ public class ClientController {
         this.clientRepository = clientRepository;
     }
 
+    @GetMapping(Api.Client.CLIENT_READ_BY_ID)
+    public ResponseEntity<ClientResponse> get(Long id) {
+        Optional<Client> possibleClient =  clientRepository.findById(id);
+
+        return possibleClient.map(client -> ResponseEntity.ok(new ClientResponse(client)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @PostMapping
-    @Transient
-    public ClientResponse save(@Valid @RequestBody ClientFormRequest clientFormRequest) {
+    @Transactional
+    public ResponseEntity<String> save(@Valid @RequestBody final ClientFormRequest clientFormRequest,
+                               @Autowired final UriComponentsBuilder uriBuilder) {
         Client newClient = clientFormRequest.toModel();
         clientRepository.save(newClient);
-        return new ClientResponse(newClient);
+
+        final URI location = uriBuilder
+                .path(Api.Client.CLIENT_READ_BY_ID)
+                .buildAndExpand(newClient.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
     @GetMapping

@@ -9,7 +9,7 @@ public final class Phone {
     private final String number;
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private Phone() {

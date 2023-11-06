@@ -2,6 +2,10 @@ package com.odin.odinbff.controller.product;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.EnumNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.EnumNaming;
 import com.odin.odinbff.model.Product;
 import com.odin.odinbff.repository.BrandRepository;
 import com.odin.odinbff.repository.PurveyorReposioty;
@@ -10,38 +14,35 @@ import jakarta.validation.constraints.NotNull;
 
 public class ProductFormRequest {
 
+	@JsonProperty
 	private final String reference;
+	@JsonProperty
 	private final String name;
-	private final String unitType;
+	@JsonProperty
+	@JsonEnumDefaultValue
+	private final Product.UnitType unitType;
+	@JsonProperty
 	private final Long brand;
+	@JsonProperty
 	private final Long purveyor;
-	private final boolean isActive;
-	private final boolean inventoryControl;
+	@JsonProperty
+	private final Boolean isActive;
+	@JsonProperty
+	private final Boolean inventoryControl;
+	@JsonProperty
 	private final BigDecimal purchaseCost;
+	@JsonProperty
 	private final BigDecimal currentSalePrice;
+	@JsonProperty
 	private final Short currentStock;
+	@JsonProperty
 	private final Short minStock;
+	@JsonProperty
 	private final String location;
-	
-	public Product toModel(final BrandRepository brandRepository, final PurveyorReposioty purveyorReposioty) {
-		return new Product(
-				reference,
-				name,
-				Product.UnitType.valueOf(unitType),
-				brandRepository.getReferenceById(brand),
-				purveyorReposioty.getReferenceById(purveyor),
-				isActive,
-				inventoryControl,
-				purchaseCost,
-				currentSalePrice,
-				currentStock,
-				minStock,
-				location);
-	}
-	
+
 	public ProductFormRequest(@NotBlank final String reference,
 							  @NotBlank final String name,
-							  @NotBlank final String unitType,
+							  @NotBlank final Product.UnitType unitType,
 							  @NotNull final Long brands,
 							  @NotNull final Long purveyor,
 							  @NotNull final Boolean isActive,
@@ -63,5 +64,21 @@ public class ProductFormRequest {
 		this.currentStock = currentStock;
 		this.minStock = minStock;
 		this.location = location;
+	}
+
+	public Product toModel(final BrandRepository brandRepository, final PurveyorReposioty purveyorReposioty) {
+		return new Product(
+				reference,
+				name,
+				unitType,
+				brandRepository.getReferenceById(brand),
+				purveyorReposioty.getReferenceById(purveyor),
+				isActive,
+				inventoryControl,
+				purchaseCost,
+				currentSalePrice,
+				currentStock,
+				minStock,
+				location);
 	}
 }

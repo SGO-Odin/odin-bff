@@ -11,14 +11,14 @@ public class ZipCode {
     }
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private ZipCode() {
         this.zipCode = null;
     }
 
-    public String getZipCode() {
+    public String getNumber() {
         return zipCode;
     }
 }

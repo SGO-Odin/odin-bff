@@ -72,7 +72,7 @@ public final class ClientFormRequest {
 
         emails.forEach(client::addEmail);
         phones.forEach(phoneRequest -> {
-            client.addPhone(phoneRequest.toModel(), phoneRequest.isMain());
+            client.addPhone(phoneRequest.toModel(), phoneRequest.getIsMain());
         });
 
         return client;

@@ -3,7 +3,7 @@ package com.odin.odinbff.model;
 import jakarta.persistence.*;
 
 @Entity
-public class State {
+public final class State {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
@@ -19,7 +19,7 @@ public class State {
     }
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private State() {
@@ -42,7 +42,7 @@ public class State {
         return acronym;
     }
 
-    public Boolean getFederalDistrict() {
+    public Boolean isFederalDistrict() {
         return isFederalDistrict;
     }
 }

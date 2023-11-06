@@ -30,7 +30,7 @@ public final class PhoneFormRequest {
         return new Phone(ddd, number);
     }
 
-    public Boolean isMain() {
+    public Boolean getIsMain() {
         return isMain;
     }
 }

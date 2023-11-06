@@ -27,6 +27,15 @@ public class Prescription {
     @CreationTimestamp
     private final LocalDateTime createdOn;
 
+    /**
+     * Don't use. Don't remove. Requires by JPA.
+     */
+    @Deprecated
+    private Prescription() {
+        this(null, null, null, null, null);
+    }
+
+
     public Prescription(LocalDate expirationDate, Float additional, Client client) {
         this(null, expirationDate, additional, client, LocalDateTime.now());
     }
@@ -55,10 +64,16 @@ public class Prescription {
         return client;
     }
 
+    @Transient
     public Set<VisionProblem> getProblems() {
         return Collections.unmodifiableSet(problems);
     }
 
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    @Transient
     public void addVisionProblem(VisionProblem.Types type,
                                  VisionProblem.PositionOfEyesType positionOfEyes,
                                  Float spherical,
@@ -67,9 +82,5 @@ public class Prescription {
                                  Float npd,
                                  Float height) {
         problems.add(new VisionProblem(this, type, positionOfEyes, spherical, cylinder, axis, npd, height));
-    }
-
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
     }
 }

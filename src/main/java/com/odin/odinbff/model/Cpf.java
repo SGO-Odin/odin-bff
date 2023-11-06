@@ -16,7 +16,7 @@ public final class Cpf {
     }
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private Cpf(){

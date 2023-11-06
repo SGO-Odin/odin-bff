@@ -47,7 +47,7 @@ public final class Client {
     private final Set<ClientPhone> phones = new HashSet<>();
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private Client() {

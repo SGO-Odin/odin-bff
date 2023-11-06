@@ -11,7 +11,7 @@ public class ClientPhone {
     private final Boolean isMain;
 
     /**
-     * Don't use. Requires by JPA.
+     * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private ClientPhone() {
@@ -43,7 +43,7 @@ public class ClientPhone {
         private final Phone phone;
 
         /**
-         * Don't use. Requires by JPA.
+         * Don't use. Don't remove. Requires by JPA.
          */
         @Deprecated
         private Pk() {
