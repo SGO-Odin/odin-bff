@@ -61,7 +61,7 @@ final class PurveyorControllerTest extends BaseControllerTest {
                 .getResponse();
 
         String expectedLocation = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path(Api.Client.CLIENT_READ_BY_ID)
+                .path(Api.Purveyor.PURVEYOR_READ_BY_ID)
                 .buildAndExpand(1).toUriString();
 
         assertThat(result.getStatus()).isEqualTo(HttpStatus.CREATED.value());

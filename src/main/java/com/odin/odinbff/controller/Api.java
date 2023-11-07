@@ -4,9 +4,14 @@ public final class Api {
 
     public final static String PATH_PARAM_ID = "/{id}";
 
+    public final static String PATH_PARAM_ID_ACTIVATE = PATH_PARAM_ID + "/activate";
+
+    public final static String PATH_PARAM_ID_INACTIVATE = PATH_PARAM_ID + "/inactivate";
+
     public final static class Client {
         public final static String CLIENT_RESOURCE = "/api/client";
         public final static String CLIENT_READ_BY_ID = CLIENT_RESOURCE + PATH_PARAM_ID;
+
     }
 
     public final static class Purveyor {
@@ -21,6 +26,10 @@ public final class Api {
         public final static String BRAND_RESOURCE = "/api/brand";
 
         public final static String BRAND_READ_BY_ID = BRAND_RESOURCE + PATH_PARAM_ID;
+
+        public final static String BRAND_ACTIVATE = BRAND_RESOURCE + PATH_PARAM_ID_ACTIVATE;
+
+        public final static String BRAND_INACTIVATE = BRAND_RESOURCE + PATH_PARAM_ID_INACTIVATE;
     }
 
     public final static class Product {

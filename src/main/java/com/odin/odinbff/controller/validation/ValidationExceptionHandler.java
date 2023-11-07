@@ -14,11 +14,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @RestControllerAdvice
 public class ValidationExceptionHandler {
 
     private final MessageSource messageSource;
+
+    private final static String PREFIX_LABEL_ATTRIBUTE = "label.attribute.";
 
     public ValidationExceptionHandler(@Autowired final MessageSource messageSource) {
         this.messageSource = messageSource;
@@ -30,7 +33,12 @@ public class ValidationExceptionHandler {
 
         List<ValidationErrorResponse> errors = new ArrayList<>();
         validationBindException.getFieldErrors().forEach( e -> {
-            errors.add(new ValidationErrorResponse(e.getField(), String.valueOf(e.getRejectedValue()) ,this.messageSource.getMessage(e, LocaleContextHolder.getLocale())));
+            errors.add(new ValidationErrorResponse(
+                    e.getField(),
+                    String.valueOf(e.getRejectedValue()),
+                    this.messageSource.getMessage(e, LocaleContextHolder.getLocale()),
+                    this.messageSource.getMessage(PREFIX_LABEL_ATTRIBUTE + e.getField(), null, "{" + PREFIX_LABEL_ATTRIBUTE + e.getField() + "}", Locale.getDefault())
+            ));
         });
 
         return errors;

@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -36,10 +37,14 @@ class BrandControllerTest extends BaseControllerTest {
                 .andReturn()
                 .getResponse();
 
-        assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(result.getContentAsString()).isEqualTo(brandResponseJson.write(
-                new BrandResponse(new Brand(1L, "Brand Success"))
-        ).getJson());
+        assertThat(result.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+
+        final String expectedLocation = ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path(Api.Brand.BRAND_READ_BY_ID)
+                                .buildAndExpand(1L)
+                                        .toUriString();
+
+        assertThat(result.getRedirectedUrl()).isEqualTo(expectedLocation);
     }
 
     @Test
@@ -52,4 +57,6 @@ class BrandControllerTest extends BaseControllerTest {
 
         assertThat(result.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
+
+     record BrandResponse(Long id, String name){}
 }
