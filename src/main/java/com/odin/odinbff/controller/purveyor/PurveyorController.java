@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(Api.Purveyor.PURVEYOR_RESOURCE)
@@ -39,9 +39,12 @@ public class PurveyorController {
     }
 
     @GetMapping(Api.PATH_PARAM_ID)
-    public Optional<PurveyorResponse> read(@PathVariable final Long id){
+    public Optional<PurveyorResponse> get(@PathVariable final Long id){
         return Optional.of(purveyorReposioty.getReferenceById(id)).map(PurveyorResponse::new);
     }
 
-
+    @GetMapping
+    public List<PurveyorResponse> getAll() {
+        return purveyorReposioty.findAll().stream().map(PurveyorResponse::new).collect(Collectors.toList());
+    }
 }

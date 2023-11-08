@@ -15,7 +15,11 @@ public final class BrandFormRequest {
 		this.name = name;
 	}
 
+	public Brand toModel(final Long id) {
+		return new Brand(id, name);
+	}
+
 	public Brand toModel() {
-		return new Brand(name);
+		return toModel(null);
 	}
 }

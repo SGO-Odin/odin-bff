@@ -37,7 +37,6 @@ public final class ClientFormRequest {
     @JsonProperty
     private final AddressFormRequest address;
 
-    @NotEmpty
     @JsonProperty
     private final Set<String> emails;
 

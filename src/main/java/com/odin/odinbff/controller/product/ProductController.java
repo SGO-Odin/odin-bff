@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.odin.odinbff.model.Product;
-import com.odin.odinbff.model.repository.ProductRepository;
+import com.odin.odinbff.repository.ProductRepository;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController

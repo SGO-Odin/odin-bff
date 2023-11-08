@@ -27,8 +27,8 @@ public class ClientController {
         this.clientRepository = clientRepository;
     }
 
-    @GetMapping(Api.Client.CLIENT_READ_BY_ID)
-    public ResponseEntity<ClientResponse> get(Long id) {
+    @GetMapping(Api.PATH_PARAM_ID)
+    public ResponseEntity<ClientResponse> get(@PathVariable Long id) {
         Optional<Client> possibleClient =  clientRepository.findById(id);
 
         return possibleClient.map(client -> ResponseEntity.ok(new ClientResponse(client)))
@@ -37,7 +37,7 @@ public class ClientController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<String> save(@Valid @RequestBody final ClientFormRequest clientFormRequest,
+    public ResponseEntity<Void> save(@Valid @RequestBody final ClientFormRequest clientFormRequest,
                                @Autowired final UriComponentsBuilder uriBuilder) {
         Client newClient = clientFormRequest.toModel();
         clientRepository.save(newClient);

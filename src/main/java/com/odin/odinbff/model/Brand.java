@@ -1,35 +1,36 @@
 package com.odin.odinbff.model;
 
+import com.odin.odinbff.model.auditity.HistoryLoggable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = Constraints.Brand.UK_BRAND_NAME, columnNames = {"name"})
 })
-public final class Brand {
+public final class Brand extends HistoryLoggable<Brand> implements HasLongId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
-    @Column(nullable = false, length = Validations.Name.MAX_LENGTH, unique = true, updatable = false)
-    @Length(min = Validations.Name.MIN_LENGTH, max = Validations.Name.MAX_LENGTH)
-    private final String name;
+    @Column(nullable = false, length = TableDefinitions.Name.MAX_LENGTH, unique = true)
+    @Length(min = TableDefinitions.Name.MIN_LENGTH, max = TableDefinitions.Name.MAX_LENGTH)
+    private String name;
 
     @Column(nullable = false)
     private Boolean isActive = true;
 
     @CreationTimestamp
     @Column(nullable = false)
-    private final LocalDateTime createdOn;
+    private LocalDateTime createdOn = null;
 
     @UpdateTimestamp
     @Column(nullable = false)
-    private final LocalDateTime updatedOn;
+    private LocalDateTime updatedOn = null;
     /**
      * Don't use. Don't remove. Requires by JPA.
      */
@@ -44,8 +45,6 @@ public final class Brand {
     public Brand(Long id, final String name) {
         this.name = name;
         this.id = id;
-        this.createdOn = LocalDateTime.now();
-        this.updatedOn = createdOn;
     }
 
     public Brand(final String name) {
@@ -80,7 +79,26 @@ public final class Brand {
         this.isActive = true;
     }
 
-    public static final class Validations {
+    @Override
+    protected Set<String> attrToUpdateLog() {
+        return Set.of(
+                "name",
+                "isActive"
+        );
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.updatedOn = LocalDateTime.now();
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.updatedOn = LocalDateTime.now();
+        this.createdOn = updatedOn;
+    }
+
+    public static final class TableDefinitions {
         public static final class Name {
             public static final short MAX_LENGTH = 255;
             public static final short MIN_LENGTH = 1;
