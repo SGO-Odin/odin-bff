@@ -1,4 +1,4 @@
-package com.odin.odinbff.model.auditity;
+package com.odin.odinbff.model.audit;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

@@ -1,6 +1,6 @@
 package com.odin.odinbff.service;
 
-import com.odin.odinbff.model.auditity.History;
+import com.odin.odinbff.model.audit.History;
 import com.odin.odinbff.repository.HistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

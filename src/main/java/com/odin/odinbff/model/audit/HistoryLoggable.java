@@ -1,4 +1,4 @@
-package com.odin.odinbff.model.auditity;
+package com.odin.odinbff.model.audit;
 
 
 import com.odin.odinbff.model.HasLongId;
