@@ -1,7 +1,6 @@
 package com.odin.odinbff.model.auditity;
 
 
-import com.odin.odinbff.model.Brand;
 import com.odin.odinbff.model.HasLongId;
 import jakarta.persistence.Transient;
 
@@ -11,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public abstract class HistoryLoggable<T> {
-    Map<String, Object> logOfUpdate(T newer) {
+    Map<String, Object> update(T newer) {
         final Map<String, Object> data = new HashMap<>();
 
         attrToUpdateLog().forEach(fieldName -> {

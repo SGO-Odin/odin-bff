@@ -59,9 +59,9 @@ public final class BrandController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@Valid @RequestBody BrandFormRequest request, @Autowired UriComponentsBuilder uriComponentsBuilder) {
-        Brand brand = request.toModel();
-        brandRepository.save(brand);
+    public ResponseEntity<Void> save(@Valid @RequestBody BrandFormRequest request, @Autowired UriComponentsBuilder uriComponentsBuilder) throws NoSuchFieldException, IllegalAccessException {
+        final Brand brand = request.toModel();
+        brandService.create(brand);
         return ResponseEntity.created(
                 uriComponentsBuilder
                         .path(Api.Brand.BRAND_READ_BY_ID)

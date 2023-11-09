@@ -2,7 +2,6 @@ package com.odin.odinbff.model.auditity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -75,7 +74,7 @@ public final class History {
                                                             final Tp updated)
             throws NoSuchFieldException, IllegalAccessException {
 
-        return new History(target.getClass(), EventType.UPDATED, target.logOfUpdate(updated), target.logOfAllData());
+        return new History(target.getClass(), EventType.UPDATED, target.update(updated), target.logOfAllData());
     }
 
     public String getEntity() {
@@ -88,6 +87,13 @@ public final class History {
 
     public Map<String, Object> getHistory() {
         return oldData;
+    }
+
+    public Boolean isValid() {
+        return result != null && !result.isEmpty()
+                && ((eventType == EventType.CREATE && oldData == null)
+                    || (eventType == EventType.UPDATED
+                        && oldData != null && !oldData.isEmpty()));
     }
 
     @PrePersist
