@@ -19,7 +19,7 @@ public final class Purveyor {
     private final String companyName;
     private final Boolean isLaboratory;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private final Address address;
 
     @OneToMany(mappedBy = "id.purveyor", cascade = CascadeType.ALL)

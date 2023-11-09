@@ -9,15 +9,11 @@ public final class StateResponse {
         this.state = state;
     }
 
-    public Long getId() {
-        return state.getId();
-    }
-
     public String getName() {
         return state.getName();
     }
 
-    public String getAcronym() {
+    public State.StateAcronyms getAcronym() {
         return state.getAcronym();
     }
 

@@ -2,7 +2,7 @@ package com.odin.odinbff.controller.client;
 
 import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.model.client.Client;
-import com.odin.odinbff.repository.ClientRepository;
+import com.odin.odinbff.repository.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,26 @@ import java.util.stream.Collectors;
 @RequestMapping(Api.Client.CLIENT_RESOURCE)
 public class ClientController {
 
-    @Autowired
     private final ClientRepository clientRepository;
 
-    public ClientController(@Autowired ClientRepository clientRepository) {
+    private final PublicPlaceRepository publicPlaceRepository;
+
+    private final DistrictRepository districtRepository;
+
+    private final CityRepository cityRepository;
+
+    private final StateRepository stateRepository;
+
+    public ClientController(@Autowired ClientRepository clientRepository,
+                            @Autowired final PublicPlaceRepository publicPlaceRepository,
+                            @Autowired final DistrictRepository districtRepository,
+                            @Autowired final CityRepository cityRepository,
+                            @Autowired final StateRepository stateRepository) {
         this.clientRepository = clientRepository;
+        this.publicPlaceRepository = publicPlaceRepository;
+        this.districtRepository = districtRepository;
+        this.cityRepository = cityRepository;
+        this.stateRepository = stateRepository;
     }
 
     @GetMapping(Api.PATH_PARAM_ID)
@@ -38,7 +53,7 @@ public class ClientController {
     @Transactional
     public ResponseEntity<Void> save(@Valid @RequestBody final ClientFormRequest clientFormRequest,
                                @Autowired final UriComponentsBuilder uriBuilder) {
-        Client newClient = clientFormRequest.toModel();
+        Client newClient = clientFormRequest.toModel(publicPlaceRepository, districtRepository, cityRepository, stateRepository);
         clientRepository.save(newClient);
 
         final URI location = uriBuilder

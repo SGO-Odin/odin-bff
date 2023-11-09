@@ -1,6 +1,5 @@
 package com.odin.odinbff.model.product;
 
-import com.odin.odinbff.model.Constraints;
 import com.odin.odinbff.model.HasLongId;
 import com.odin.odinbff.model.audit.HistoryLoggable;
 import jakarta.persistence.*;
@@ -13,15 +12,15 @@ import java.util.*;
 
 @Entity
 @Table(uniqueConstraints = {
-        @UniqueConstraint(name = Constraints.Brand.UK_BRAND_NAME, columnNames = {"name"})
+        @UniqueConstraint(name = Brand.CONSTRAINT_UK_BRAND_NAME, columnNames = {"name"})
 })
 public final class Brand extends HistoryLoggable<Brand> implements HasLongId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
-    @Column(nullable = false, length = TableDefinitions.Name.MAX_LENGTH, unique = true)
-    @Length(min = TableDefinitions.Name.MIN_LENGTH, max = TableDefinitions.Name.MAX_LENGTH)
-    private String name;
+    @Length(min = Brand.VALIDATION_NAME_MIN_LENGTH, max = Brand.VALIDATION_NAME_MAX_LENGTH)
+    @Column(nullable = false, length = Brand.VALIDATION_NAME_MAX_LENGTH)
+    private final String name;
 
     @Column(nullable = false)
     private Boolean isActive = true;
@@ -100,10 +99,8 @@ public final class Brand extends HistoryLoggable<Brand> implements HasLongId {
         this.createdOn = updatedOn;
     }
 
-    public static final class TableDefinitions {
-        public static final class Name {
-            public static final short MAX_LENGTH = 255;
-            public static final short MIN_LENGTH = 1;
-        }
-    }
+    public final static String CONSTRAINT_UK_BRAND_NAME = "uk_brand_name";
+    public final static short VALIDATION_NAME_MAX_LENGTH = 255;
+
+    public final static short VALIDATION_NAME_MIN_LENGTH = 1;
 }

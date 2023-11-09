@@ -6,6 +6,7 @@ import com.odin.odinbff.controller.commons.PhoneFormRequest;
 import com.odin.odinbff.controller.purveyor.PurveyorFormRequest;
 import com.odin.odinbff.controller.purveyor.PurveyorResponse;
 import com.odin.odinbff.model.address.PublicPlace;
+import com.odin.odinbff.model.address.State;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.json.JacksonTester;
@@ -36,14 +37,12 @@ final class PurveyorControllerTest extends BaseControllerTest {
         final PurveyorFormRequest purveyorFormRequest = new PurveyorFormRequest("FirstName",
                 "LastName",
                 false,
-                new AddressFormRequest(new PublicPlaceFormRequest("cityName",
-                        PublicPlace.Types.STREET.name(),
+                new AddressFormRequest("00000000",
+                        new PublicPlaceFormRequest("cityName",
+                                null, PublicPlace.Types.STREET.name(),
                         new DistrictFormRequest("districtName",
-                                new CityFormRequest("cityName",
-                                        new StateFormRequest("stateName",
-                                                "SN",
-                                                false),
-                                        "00000000"))),
+                                null, new CityFormRequest("cityName",
+                                        State.StateAcronyms.AL))),
                         344,
                         "00000000",
                         "",

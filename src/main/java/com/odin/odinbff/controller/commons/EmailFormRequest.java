@@ -7,6 +7,7 @@ import com.odin.odinbff.model.Email;
 public final class EmailFormRequest {
 
     @JsonProperty
+    @jakarta.validation.constraints.Email
     private final String email;
 
     @JsonProperty
@@ -14,8 +15,8 @@ public final class EmailFormRequest {
 
     @JsonCreator
     public EmailFormRequest(final String email, final Boolean isMain) {
-        this.email = email;
-        this.isMain = isMain;
+        this.email = email.trim();
+        this.isMain = isMain != null && isMain;
     }
 
     public Email toEmail() {

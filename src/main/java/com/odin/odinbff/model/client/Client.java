@@ -79,8 +79,8 @@ public final class Client {
         this.updatedOn = updatedOn;
     }
 
-    public void addEmail(final String email) {
-        emails.add(new ClientEmail(this, new Email(email), false));
+    public void addEmail(final Email email, final Boolean isMain) {
+        emails.add(new ClientEmail(this, email, false));
     }
 
     public void addPhone(final Phone phone, final Boolean isMain) {

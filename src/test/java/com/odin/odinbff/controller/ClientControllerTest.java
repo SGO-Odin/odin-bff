@@ -5,6 +5,7 @@ import com.odin.odinbff.controller.client.ClientFormRequest;
 import com.odin.odinbff.controller.client.ClientResponse;
 import com.odin.odinbff.controller.commons.PhoneFormRequest;
 import com.odin.odinbff.model.address.PublicPlace;
+import com.odin.odinbff.model.address.State;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.json.JacksonTester;
@@ -34,19 +35,17 @@ class ClientControllerTest extends BaseControllerTest {
                 "LastName",
                 "35742819005",
                 "0000000000",
-                new AddressFormRequest(new PublicPlaceFormRequest("cityName",
-                                PublicPlace.Types.STREET.name(),
+                new AddressFormRequest("00000000",
+                        new PublicPlaceFormRequest("cityName",
+                                null, PublicPlace.Types.STREET.name(),
                                 new DistrictFormRequest("districtName",
-                                        new CityFormRequest("cityName",
-                                                new StateFormRequest("stateName",
-                                                        "SN",
-                                                        false),
-                                                "00000000"))),
+                                        null, new CityFormRequest("cityName",
+                                                State.StateAcronyms.AL))),
                         344,
                         "00000000",
                         "",
                         "" ),
-                Set.of("email1@email.com", "email2@email.com"),
+                Set.of( "email1@email.com",  "email2@email.com"),
                 Set.of(new PhoneFormRequest("33", "923456781", false)));
 
         MockHttpServletResponse result = mvc.perform(post(Api.Client.CLIENT_RESOURCE)

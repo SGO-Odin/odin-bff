@@ -3,7 +3,7 @@ package com.odin.odinbff.controller.purveyor;
 
 import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.model.purveyor.Purveyor;
-import com.odin.odinbff.repository.PurveyorReposioty;
+import com.odin.odinbff.repository.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +22,36 @@ import java.util.stream.Collectors;
 public class PurveyorController {
 
     @Autowired
-    private PurveyorReposioty purveyorReposioty;
+    private final PurveyorReposioty purveyorReposioty;
+
+    private final PublicPlaceRepository publicPlaceRepository;
+
+    private final DistrictRepository districtRepository;
+
+    private final CityRepository cityRepository;
+
+    private final StateRepository stateRepository;
+
+    public PurveyorController(@Autowired final PurveyorReposioty purveyorReposioty,
+                              @Autowired final PublicPlaceRepository publicPlaceRepository,
+                              @Autowired final DistrictRepository districtRepository,
+                              @Autowired final CityRepository cityRepository,
+                              @Autowired final StateRepository stateRepository) {
+        this.purveyorReposioty = purveyorReposioty;
+        this.publicPlaceRepository = publicPlaceRepository;
+        this.districtRepository = districtRepository;
+        this.cityRepository = cityRepository;
+        this.stateRepository = stateRepository;
+    }
 
 
     @PostMapping
     public ResponseEntity<Void> save(@Valid @RequestBody final PurveyorFormRequest purveyorFormRequest){
-        Purveyor newPurveyor = purveyorFormRequest.toModel();
+        Purveyor newPurveyor = purveyorFormRequest.toModel(publicPlaceRepository, districtRepository, cityRepository, stateRepository);
         purveyorReposioty.save(newPurveyor);
 
         final URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path(Api.Purveyor.PURVEYOR_READ_BY_ID)
+                .path(Api.PATH_PARAM_ID)
                 .buildAndExpand(newPurveyor.getId())
                 .toUri();
 

@@ -5,17 +5,29 @@ import jakarta.persistence.*;
 @Entity
 public final class State {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, unique = true)
+    private final StateAcronyms acronym;
+    @Column(nullable = false, unique = true)
     private final String name;
-    private final String acronym;
+    @Column(nullable = false)
     private final Boolean isFederalDistrict;
 
-    private State(Long id, String name, String acronym, Boolean isFederalDistrict) {
+    @Column(nullable = false)
+    private final String region;
+
+    private State(final Long id,
+                  final StateAcronyms acronym,
+                  final String name,
+                  final Boolean isFederalDistrict,
+                  final String region) {
         this.id = id;
         this.name = name;
         this.acronym = acronym;
         this.isFederalDistrict = isFederalDistrict;
+        this.region = region;
     }
 
     /**
@@ -23,12 +35,9 @@ public final class State {
      */
     @Deprecated
     private State() {
-        this(null, null, null, null);
+        this(null, null, null, null, null);
     }
 
-    public State(String name, String acronym, Boolean isFederalDistrict) {
-        this(null, name, acronym, isFederalDistrict);
-    }
 
     public Long getId() {
         return id;
@@ -38,11 +47,23 @@ public final class State {
         return name;
     }
 
-    public String getAcronym() {
+    public StateAcronyms getAcronym() {
         return acronym;
     }
 
     public Boolean isFederalDistrict() {
         return isFederalDistrict;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public enum StateAcronyms {
+        AC, AM, PA, AP, TO, MA, PI,
+        CE, RN, PB, PE, AL, SE, BA,
+        MG, ES, RJ, SP, PR, SC, RS,
+        MS, MT, GO, DF, RO, RR, NONE
+
     }
 }
