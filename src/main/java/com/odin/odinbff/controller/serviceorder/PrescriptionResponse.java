@@ -1,7 +1,7 @@
 package com.odin.odinbff.controller.serviceorder;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.odin.odinbff.model.Prescription;
+import com.odin.odinbff.model.prescription.Prescription;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

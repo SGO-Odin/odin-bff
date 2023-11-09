@@ -2,7 +2,7 @@ package com.odin.odinbff.controller.serviceorder;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.odin.odinbff.controller.product.ProductResponse;
-import com.odin.odinbff.model.*;
+import com.odin.odinbff.model.serviceorder.ServiceOrder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

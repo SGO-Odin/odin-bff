@@ -1,12 +1,10 @@
 package com.odin.odinbff.controller;
 
 import com.odin.odinbff.controller.address.*;
-import com.odin.odinbff.controller.brand.BrandResponse;
 import com.odin.odinbff.controller.client.ClientFormRequest;
 import com.odin.odinbff.controller.client.ClientResponse;
 import com.odin.odinbff.controller.commons.PhoneFormRequest;
-import com.odin.odinbff.model.Brand;
-import com.odin.odinbff.model.PublicPlace;
+import com.odin.odinbff.model.address.PublicPlace;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.json.JacksonTester;
@@ -15,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Set;
 

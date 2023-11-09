@@ -1,8 +1,8 @@
 package com.odin.odinbff.controller.serviceorder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.model.Prescription;
-import com.odin.odinbff.model.VisionProblem;
+import com.odin.odinbff.model.prescription.Prescription;
+import com.odin.odinbff.model.prescription.VisionProblem;
 import jakarta.validation.constraints.NotNull;
 
 public class VisionProblemFormRequest {

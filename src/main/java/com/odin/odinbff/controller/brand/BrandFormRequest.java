@@ -2,7 +2,7 @@ package com.odin.odinbff.controller.brand;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.model.Brand;
+import com.odin.odinbff.model.product.Brand;
 import jakarta.validation.constraints.NotBlank;
 
 public final class BrandFormRequest {

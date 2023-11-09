@@ -1,8 +1,6 @@
 package com.odin.odinbff.controller.brand;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.odin.odinbff.model.Brand;
+import com.odin.odinbff.model.product.Brand;
 
 import java.time.LocalDateTime;
 

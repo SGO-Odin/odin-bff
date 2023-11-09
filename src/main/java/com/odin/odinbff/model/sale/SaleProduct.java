@@ -1,5 +1,7 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.sale;
 
+import com.odin.odinbff.model.CalculableTotal;
+import com.odin.odinbff.model.product.Product;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;

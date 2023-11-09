@@ -2,10 +2,8 @@ package com.odin.odinbff.controller.purveyor;
 
 import com.odin.odinbff.controller.commons.EmailResponse;
 import com.odin.odinbff.controller.commons.PhoneResponse;
-import com.odin.odinbff.model.Address;
-import com.odin.odinbff.model.Purveyor;
-import com.odin.odinbff.model.PurveyorEmail;
-import com.odin.odinbff.model.PurveyorPhone;
+import com.odin.odinbff.model.address.Address;
+import com.odin.odinbff.model.purveyor.Purveyor;
 
 import java.util.Set;
 import java.util.stream.Collectors;

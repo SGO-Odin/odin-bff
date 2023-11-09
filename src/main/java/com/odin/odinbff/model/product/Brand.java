@@ -1,5 +1,7 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.product;
 
+import com.odin.odinbff.model.Constraints;
+import com.odin.odinbff.model.HasLongId;
 import com.odin.odinbff.model.auditity.HistoryLoggable;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

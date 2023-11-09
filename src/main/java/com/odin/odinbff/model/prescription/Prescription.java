@@ -1,5 +1,6 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.prescription;
 
+import com.odin.odinbff.model.client.Client;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 

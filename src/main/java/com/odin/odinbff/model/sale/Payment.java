@@ -1,5 +1,7 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.sale;
 
+import com.odin.odinbff.model.sale.Sale;
+import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

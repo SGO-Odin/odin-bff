@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.EnumNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.EnumNaming;
-import com.odin.odinbff.model.Product;
+import com.odin.odinbff.model.product.Product;
 import com.odin.odinbff.repository.BrandRepository;
 import com.odin.odinbff.repository.PurveyorReposioty;
 import jakarta.validation.constraints.NotBlank;

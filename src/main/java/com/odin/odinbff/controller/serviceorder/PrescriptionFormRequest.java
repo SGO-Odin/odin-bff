@@ -2,8 +2,8 @@ package com.odin.odinbff.controller.serviceorder;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.model.Client;
-import com.odin.odinbff.model.Prescription;
+import com.odin.odinbff.model.client.Client;
+import com.odin.odinbff.model.prescription.Prescription;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

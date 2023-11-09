@@ -2,11 +2,8 @@ package com.odin.odinbff.controller.address;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.model.City;
-import com.odin.odinbff.model.State;
-import com.odin.odinbff.model.ZipCode;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.ManyToOne;
+import com.odin.odinbff.model.address.City;
+import com.odin.odinbff.model.address.ZipCode;
 
 public final class CityFormRequest {
     @JsonProperty

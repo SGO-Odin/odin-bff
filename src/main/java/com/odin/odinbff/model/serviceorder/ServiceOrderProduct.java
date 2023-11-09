@@ -1,6 +1,8 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.serviceorder;
 
+import com.odin.odinbff.model.product.Product;
 import jakarta.persistence.*;
+import org.jetbrains.annotations.Contract;
 
 import java.math.BigDecimal;
 
@@ -8,17 +10,17 @@ import java.math.BigDecimal;
 public class ServiceOrderProduct {
     @Id
     @ManyToOne
-    protected ServiceOrder serviceOrder;
+    private final ServiceOrder serviceOrder;
 
     @Id
     @ManyToOne
-    protected Product product;
+    private final Product product;
 
     @Column(nullable = false)
-    protected Short quantity;
+    private final Short quantity;
 
     @Column(nullable = false)
-    protected BigDecimal salePrice;
+    private final BigDecimal salePrice;
 
     /**
      * Don't use. Don't remove. Requires by JPA.

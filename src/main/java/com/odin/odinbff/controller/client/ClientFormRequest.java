@@ -2,10 +2,9 @@ package com.odin.odinbff.controller.client;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import com.odin.odinbff.controller.address.AddressFormRequest;
 import com.odin.odinbff.controller.commons.PhoneFormRequest;
-import com.odin.odinbff.model.Client;
+import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.model.Cpf;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

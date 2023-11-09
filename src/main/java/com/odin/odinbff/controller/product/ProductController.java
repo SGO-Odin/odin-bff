@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.odin.odinbff.model.Product;
+import com.odin.odinbff.model.product.Product;
 import com.odin.odinbff.repository.ProductRepository;
 import org.springframework.web.util.UriComponentsBuilder;
 

@@ -1,5 +1,9 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.serviceorder;
 
+import com.odin.odinbff.model.DiscountAndAdditionalPriceValue;
+import com.odin.odinbff.model.prescription.Prescription;
+import com.odin.odinbff.model.client.Client;
+import com.odin.odinbff.model.product.Product;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

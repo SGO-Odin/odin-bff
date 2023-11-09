@@ -1,13 +1,11 @@
 package com.odin.odinbff.controller.serviceorder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.controller.Api;
-import com.odin.odinbff.model.Client;
-import com.odin.odinbff.model.ServiceOrder;
+import com.odin.odinbff.model.client.Client;
+import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import com.odin.odinbff.repository.ClientRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.math.BigDecimal;

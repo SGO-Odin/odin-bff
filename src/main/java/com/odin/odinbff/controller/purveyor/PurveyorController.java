@@ -2,7 +2,7 @@ package com.odin.odinbff.controller.purveyor;
 
 
 import com.odin.odinbff.controller.Api;
-import com.odin.odinbff.model.Purveyor;
+import com.odin.odinbff.model.purveyor.Purveyor;
 import com.odin.odinbff.repository.PurveyorReposioty;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

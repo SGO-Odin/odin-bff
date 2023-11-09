@@ -1,6 +1,6 @@
 package com.odin.odinbff.service;
 
-import com.odin.odinbff.model.Brand;
+import com.odin.odinbff.model.product.Brand;
 import com.odin.odinbff.model.auditity.History;
 import com.odin.odinbff.repository.BrandRepository;
 import jakarta.transaction.Transactional;

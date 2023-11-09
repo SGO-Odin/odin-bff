@@ -1,5 +1,9 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.client;
 
+import com.odin.odinbff.model.Cpf;
+import com.odin.odinbff.model.Email;
+import com.odin.odinbff.model.Phone;
+import com.odin.odinbff.model.address.Address;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +11,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;

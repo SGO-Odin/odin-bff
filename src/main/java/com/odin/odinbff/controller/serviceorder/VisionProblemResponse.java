@@ -1,6 +1,6 @@
 package com.odin.odinbff.controller.serviceorder;
 
-import com.odin.odinbff.model.VisionProblem;
+import com.odin.odinbff.model.prescription.VisionProblem;
 
 public class VisionProblemResponse {
 

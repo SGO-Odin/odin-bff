@@ -1,4 +1,4 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.address;
 
 import jakarta.persistence.*;
 

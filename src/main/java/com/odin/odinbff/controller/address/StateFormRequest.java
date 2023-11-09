@@ -2,9 +2,7 @@ package com.odin.odinbff.controller.address;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.model.State;
-
-import java.nio.file.AtomicMoveNotSupportedException;
+import com.odin.odinbff.model.address.State;
 
 public final class StateFormRequest {
     @JsonProperty

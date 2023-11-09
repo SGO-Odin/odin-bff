@@ -1,8 +1,7 @@
 package com.odin.odinbff.controller.address;
 
-import com.odin.odinbff.model.City;
-import com.odin.odinbff.model.State;
-import com.odin.odinbff.model.ZipCode;
+import com.odin.odinbff.model.address.City;
+import com.odin.odinbff.model.address.ZipCode;
 
 public final class CityResponse {
     private final City city;

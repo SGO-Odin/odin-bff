@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.odinbff.controller.address.AddressFormRequest;
 import com.odin.odinbff.controller.commons.EmailFormRequest;
 import com.odin.odinbff.controller.commons.PhoneFormRequest;
-import com.odin.odinbff.model.Purveyor;
+import com.odin.odinbff.model.purveyor.Purveyor;
 
 import java.util.Set;
 

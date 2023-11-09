@@ -2,7 +2,7 @@ package com.odin.odinbff.controller.address;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.model.District;
+import com.odin.odinbff.model.address.District;
 
 public final class DistrictFormRequest {
     @JsonProperty

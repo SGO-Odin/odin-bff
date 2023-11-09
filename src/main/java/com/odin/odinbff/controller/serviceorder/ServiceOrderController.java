@@ -1,7 +1,7 @@
 package com.odin.odinbff.controller.serviceorder;
 
 import com.odin.odinbff.controller.Api;
-import com.odin.odinbff.model.ServiceOrder;
+import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import com.odin.odinbff.repository.ClientRepository;
 import com.odin.odinbff.repository.ServiceOrderRepository;
 import jakarta.transaction.Transactional;

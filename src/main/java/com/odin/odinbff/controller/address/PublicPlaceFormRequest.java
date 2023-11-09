@@ -2,7 +2,7 @@ package com.odin.odinbff.controller.address;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.model.PublicPlace;
+import com.odin.odinbff.model.address.PublicPlace;
 
 public final class PublicPlaceFormRequest {
 

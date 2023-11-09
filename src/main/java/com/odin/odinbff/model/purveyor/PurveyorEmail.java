@@ -1,5 +1,6 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.purveyor;
 
+import com.odin.odinbff.model.Email;
 import jakarta.persistence.*;
 
 @Entity

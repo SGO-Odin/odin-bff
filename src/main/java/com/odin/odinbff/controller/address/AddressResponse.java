@@ -1,6 +1,6 @@
 package com.odin.odinbff.controller.address;
 
-import com.odin.odinbff.model.Address;
+import com.odin.odinbff.model.address.Address;
 
 public final class AddressResponse {
     private final Address address;

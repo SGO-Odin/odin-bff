@@ -1,5 +1,6 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.sale;
 
+import com.odin.odinbff.model.serviceorder.ServiceOrderProduct;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,7 +21,7 @@ public class SaleServiceOrderProduct {
      * @param saleProduct
      */
     public SaleServiceOrderProduct(ServiceOrderProduct serviceOrderProduct, SaleProduct saleProduct) {
-        if(serviceOrderProduct.product != saleProduct.getProduct())
+        if(serviceOrderProduct.getProduct() != saleProduct.getProduct())
             throw new IllegalArgumentException("product in sale-product and service_order-product must be the same!");
 
         this.serviceOrderProduct = serviceOrderProduct;

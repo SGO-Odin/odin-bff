@@ -2,8 +2,8 @@ package com.odin.odinbff.controller.address;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.model.Address;
-import com.odin.odinbff.model.ZipCode;
+import com.odin.odinbff.model.address.Address;
+import com.odin.odinbff.model.address.ZipCode;
 
 public final class AddressFormRequest {
 

@@ -1,6 +1,6 @@
 package com.odin.odinbff.controller.client;
 
-import com.odin.odinbff.model.*;
+import com.odin.odinbff.model.client.Client;
 
 import java.util.Set;
 import java.util.stream.Collectors;

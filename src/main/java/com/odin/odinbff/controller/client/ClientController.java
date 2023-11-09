@@ -1,9 +1,8 @@
 package com.odin.odinbff.controller.client;
 
 import com.odin.odinbff.controller.Api;
-import com.odin.odinbff.model.Client;
+import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.repository.ClientRepository;
-import jakarta.persistence.Transient;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

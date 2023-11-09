@@ -1,6 +1,6 @@
 package com.odin.odinbff.controller.product;
 
-import com.odin.odinbff.model.Product;
+import com.odin.odinbff.model.product.Product;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -1,5 +1,8 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.purveyor;
 
+import com.odin.odinbff.model.Email;
+import com.odin.odinbff.model.Phone;
+import com.odin.odinbff.model.address.Address;
 import jakarta.persistence.*;
 
 import java.util.Collections;

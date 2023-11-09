@@ -1,6 +1,6 @@
 package com.odin.odinbff.controller.address;
 
-import com.odin.odinbff.model.State;
+import com.odin.odinbff.model.address.State;
 
 public final class StateResponse {
     private final State state;

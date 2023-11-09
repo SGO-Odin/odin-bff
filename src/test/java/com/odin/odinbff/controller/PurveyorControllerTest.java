@@ -5,7 +5,7 @@ import com.odin.odinbff.controller.commons.EmailFormRequest;
 import com.odin.odinbff.controller.commons.PhoneFormRequest;
 import com.odin.odinbff.controller.purveyor.PurveyorFormRequest;
 import com.odin.odinbff.controller.purveyor.PurveyorResponse;
-import com.odin.odinbff.model.PublicPlace;
+import com.odin.odinbff.model.address.PublicPlace;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.json.JacksonTester;

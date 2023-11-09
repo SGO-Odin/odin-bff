@@ -1,5 +1,9 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.sale;
 
+import com.odin.odinbff.model.DiscountAndAdditionalPriceValue;
+import com.odin.odinbff.model.client.Client;
+import com.odin.odinbff.model.product.Product;
+import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Null;
 import org.hibernate.annotations.CreationTimestamp;

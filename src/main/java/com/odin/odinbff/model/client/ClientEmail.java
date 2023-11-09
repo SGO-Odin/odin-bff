@@ -1,25 +1,26 @@
-package com.odin.odinbff.model;
+package com.odin.odinbff.model.client;
 
+import com.odin.odinbff.model.Email;
 import jakarta.persistence.*;
 
 @Entity
-public class ClientPhone {
+
+public class ClientEmail {
 
     @EmbeddedId
     private final Pk id;
-
     private final Boolean isMain;
 
     /**
      * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
-    private ClientPhone() {
+    private ClientEmail() {
         this(null, null, null);
     }
 
-    public ClientPhone(final Client client, final Phone phone, final Boolean isMain) {
-        this.id = new Pk(client, phone);
+    public ClientEmail(final Client client, final Email email, final Boolean isMain) {
+        this.id = new Pk(client, email);
         this.isMain = isMain;
     }
 
@@ -27,8 +28,8 @@ public class ClientPhone {
         return id.client;
     }
 
-    public Phone getPhone() {
-        return id.phone;
+    public Email getEmail() {
+        return id.email;
     }
 
     public Boolean isMain() {
@@ -37,10 +38,12 @@ public class ClientPhone {
 
     @Embeddable
     private static class Pk {
+
         @ManyToOne(optional = false)
         private final Client client;
+
         @Embedded
-        private final Phone phone;
+        private final Email email;
 
         /**
          * Don't use. Don't remove. Requires by JPA.
@@ -50,9 +53,9 @@ public class ClientPhone {
             this(null, null);
         }
 
-        private Pk(Client client, Phone phone) {
+        private Pk(final Client client, final Email email) {
             this.client = client;
-            this.phone = phone;
+            this.email = email;
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.odin.odinbff.controller.address;
 
-import com.odin.odinbff.model.District;
-import com.odin.odinbff.model.PublicPlace;
+import com.odin.odinbff.model.address.PublicPlace;
 
 public final class PublicPlaceResponse {
     private final PublicPlace publicPlace;
