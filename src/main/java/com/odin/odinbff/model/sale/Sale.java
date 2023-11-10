@@ -1,6 +1,8 @@
 package com.odin.odinbff.model.sale;
 
 import com.odin.odinbff.model.DiscountAndAdditionalPriceValue;
+import com.odin.odinbff.model.HasLongId;
+import com.odin.odinbff.model.audit.HistoryLoggable;
 import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.model.product.Product;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
@@ -15,37 +17,43 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Sale implements DiscountAndAdditionalPriceValue {
+public class Sale extends HistoryLoggable<Sale> implements DiscountAndAdditionalPriceValue, Payable, HasLongId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
 
     @Null
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private final ServiceOrder importedServiceOrder;
 
     @ManyToOne(optional = false)
     private final Client client;
 
-    @OneToMany(mappedBy = "sale")
+    @OneToMany(mappedBy = "sale", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private final Set<SaleProduct> saleProducts = new HashSet<>();
 
-    @CreationTimestamp
-    private final LocalDateTime createdOn;
+    @OneToMany(cascade = CascadeType.MERGE)
+    private final Set<Payment> payments = new HashSet<>();
 
-    private Sale (final Long id, final Client client, final ServiceOrder importedServiceOrder, final LocalDateTime createdOn) {
+    @Column(nullable = false)
+    private LocalDateTime createdOn;
+
+    /**
+     * Don't use. Don't remove. Requires by JPA.
+     */
+    @Deprecated
+    private Sale() {
+        this(null, null, null);
+    }
+
+    private Sale (final Long id, final Client client, final ServiceOrder importedServiceOrder) {
         this.id = id;
         this.client = client;
         this.importedServiceOrder = importedServiceOrder;
-        this.createdOn = createdOn;
     }
 
     public Sale (Client client, ServiceOrder importedServiceOrder) {
-        this(null, client, importedServiceOrder, LocalDateTime.now());
-    }
-
-    public Sale (Client client) {
-        this(client, null);
+        this(null, client, importedServiceOrder);
     }
 
     public Long getId() {
@@ -54,6 +62,10 @@ public class Sale implements DiscountAndAdditionalPriceValue {
 
     public LocalDateTime getCreatedOn() {
         return createdOn;
+    }
+
+    public boolean hasImportedServiceOrder() {
+        return importedServiceOrder != null;
     }
 
     public ServiceOrder getImportedServiceOrder() {
@@ -72,11 +84,25 @@ public class Sale implements DiscountAndAdditionalPriceValue {
         saleProducts.add(new SaleProduct(this, product, quantity));
     }
 
+    public void addPayment(final Payment payment) {
+        payment.setSale(this);
+        payments.add(payment);
+    }
+
     public BigDecimal calculateFinalPriceValue () {
         return saleProducts
                 .stream()
                 .map(SaleProduct::calculateTotalValue)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public Set<Payment> getPayments(){
+        return Collections.unmodifiableSet(payments);
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.createdOn = LocalDateTime.now();
     }
 
 }

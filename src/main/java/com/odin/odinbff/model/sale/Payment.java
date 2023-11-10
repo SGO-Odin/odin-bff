@@ -1,5 +1,7 @@
 package com.odin.odinbff.model.sale;
 
+import com.odin.odinbff.model.HasLongId;
+import com.odin.odinbff.model.audit.HistoryLoggable;
 import com.odin.odinbff.model.sale.Sale;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import jakarta.persistence.*;
@@ -10,15 +12,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Entity
-public final class Payment {
+public final class Payment extends HistoryLoggable<Payment> implements HasLongId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
-
-    @NotNull
-    @Positive
-    @Column(nullable = false)
-    private final Byte quantityInstallments;
 
     @Enumerated(EnumType.STRING)
     private final Type type;
@@ -27,27 +24,22 @@ public final class Payment {
     @Positive
     private final BigDecimal amount;
 
-    @ManyToOne(optional = false)
-    private final Sale sale;
+    @NotNull
+    @Positive
+    @Column(nullable = false)
+    private final Byte quantityInstallments;
 
     @ManyToOne
-    private final ServiceOrder serviceOrder;
+    private Sale sale;
 
-    private Payment(final Long id, final Type type, final BigDecimal amount, final Byte quantityInstallments, final Sale sale, final ServiceOrder serviceOrder) {
+    @ManyToOne
+    private ServiceOrder serviceOrder;
+
+    public Payment(final Long id, final Type type, final BigDecimal amount, final Byte quantityInstallments) {
         this.id = id;
         this.type = type;
         this.amount = amount;
         this.quantityInstallments = quantityInstallments;
-        this.sale = sale;
-        this.serviceOrder = serviceOrder;
-    }
-
-    public Payment(final Type type, final BigDecimal amount, final Byte quantityInstallments, final Sale sale) {
-        this(null, type, amount, quantityInstallments, sale, null);
-    }
-
-    public Payment(final Type type, final BigDecimal amount, final Sale sale) {
-        this(type, amount, (byte) 1, sale);
     }
 
     public Byte getQuantityInstallments() {
@@ -58,12 +50,25 @@ public final class Payment {
         return sale;
     }
 
+    public void setSale(@NotNull Sale sale) {
+        if(sale == null)
+            throw new IllegalArgumentException("sale não pode ser null!");
+        this.sale = sale;
+    }
+
     public Long getId() {
         return id;
     }
 
+
     public ServiceOrder getServiceOrder() {
         return serviceOrder;
+    }
+
+    public void setServiceOrder(@NotNull ServiceOrder serviceOrder) {
+        if(serviceOrder == null)
+            throw new IllegalArgumentException("serviceOrder não pode ser null!");
+        this.serviceOrder = serviceOrder;
     }
 
     public Type getType() {
@@ -94,5 +99,20 @@ public final class Payment {
 
     public enum Type {
         CREDIT_CARD, DEBIT_CARD, MONEY, PIX
+    }
+
+    private void checkState() {
+        if(sale == null && serviceOrder == null)
+            throw new IllegalStateException("Sales and Service Orders cannot both be null.");
+    }
+
+    @PrePersist
+    private void prePersist() {
+        checkState();
+    }
+
+    @PreUpdate
+    private void preUpdate(){
+        checkState();
     }
 }

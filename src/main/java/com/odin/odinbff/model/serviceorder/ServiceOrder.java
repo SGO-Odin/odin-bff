@@ -6,6 +6,8 @@ import com.odin.odinbff.model.audit.HistoryLoggable;
 import com.odin.odinbff.model.prescription.Prescription;
 import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.model.product.Product;
+import com.odin.odinbff.model.sale.Payable;
+import com.odin.odinbff.model.sale.Payment;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -18,7 +20,8 @@ import java.util.Set;
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = ServiceOrder.Constants.CONSTRAINT_UK_SERVICE_ORDER_NUMBER, columnNames = "number")
 })
-public final class ServiceOrder extends HistoryLoggable<ServiceOrder> implements DiscountAndAdditionalPriceValue, HasLongId {
+public final class ServiceOrder extends HistoryLoggable<ServiceOrder>
+        implements DiscountAndAdditionalPriceValue, Payable, HasLongId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
@@ -36,8 +39,8 @@ public final class ServiceOrder extends HistoryLoggable<ServiceOrder> implements
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private final Prescription prescription;
     @Enumerated(EnumType.STRING)
-    private final StatusType status;
-    private final LocalDateTime closedOn;
+    private StatusType status;
+    private LocalDateTime closedOn;
     private final LocalDateTime canceledOn;
     @Column(nullable = false)
     private LocalDateTime createdOn;
@@ -46,6 +49,9 @@ public final class ServiceOrder extends HistoryLoggable<ServiceOrder> implements
 
     @OneToMany(mappedBy = "serviceOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private final Set<ServiceOrderProduct> products = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE)
+    private final Set<Payment> payments = new HashSet<>();
 
     /**
      * Don't use. Don't remove. Requires by JPA.
@@ -165,6 +171,16 @@ public final class ServiceOrder extends HistoryLoggable<ServiceOrder> implements
 
     public void setNumber(Long number) {
         this.number = number;
+    }
+
+    public void addPayment(final Payment payment) {
+        payment.setServiceOrder(this);
+        payments.add(payment);
+    }
+
+    public void close() {
+        status = StatusType.CLOSED;
+        closedOn = LocalDateTime.now();
     }
 
     @Override
