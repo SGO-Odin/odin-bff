@@ -12,14 +12,14 @@ import java.util.*;
 
 @Entity
 @Table(uniqueConstraints = {
-        @UniqueConstraint(name = Brand.CONSTRAINT_UK_BRAND_NAME, columnNames = {"name"})
+        @UniqueConstraint(name = Brand.Constants.CONSTRAINT_UK_BRAND_NAME, columnNames = {"name"})
 })
 public final class Brand extends HistoryLoggable<Brand> implements HasLongId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
-    @Length(min = Brand.VALIDATION_NAME_MIN_LENGTH, max = Brand.VALIDATION_NAME_MAX_LENGTH)
-    @Column(nullable = false, length = Brand.VALIDATION_NAME_MAX_LENGTH)
+    @Length(min = Constants.VALIDATION_NAME_MIN_LENGTH, max = Constants.VALIDATION_NAME_MAX_LENGTH)
+    @Column(nullable = false, length = Constants.VALIDATION_NAME_MAX_LENGTH)
     private final String name;
 
     @Column(nullable = false)
@@ -99,8 +99,10 @@ public final class Brand extends HistoryLoggable<Brand> implements HasLongId {
         this.createdOn = updatedOn;
     }
 
-    public final static String CONSTRAINT_UK_BRAND_NAME = "uk_brand_name";
-    public final static short VALIDATION_NAME_MAX_LENGTH = 255;
+    static final class Constants {
+        public final static String CONSTRAINT_UK_BRAND_NAME = "uk_brand_name";
+        public final static short VALIDATION_NAME_MAX_LENGTH = 255;
+        public final static short VALIDATION_NAME_MIN_LENGTH = 1;
+    }
 
-    public final static short VALIDATION_NAME_MIN_LENGTH = 1;
 }

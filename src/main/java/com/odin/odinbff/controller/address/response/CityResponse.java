@@ -1,4 +1,4 @@
-package com.odin.odinbff.controller.address;
+package com.odin.odinbff.controller.address.response;
 
 import com.odin.odinbff.model.address.City;
 import com.odin.odinbff.model.address.ZipCode;

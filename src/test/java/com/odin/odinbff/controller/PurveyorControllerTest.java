@@ -1,6 +1,9 @@
 package com.odin.odinbff.controller;
 
-import com.odin.odinbff.controller.address.*;
+import com.odin.odinbff.controller.address.request.AddressFormRequest;
+import com.odin.odinbff.controller.address.request.CityFormRequest;
+import com.odin.odinbff.controller.address.request.DistrictFormRequest;
+import com.odin.odinbff.controller.address.request.PublicPlaceFormRequest;
 import com.odin.odinbff.controller.commons.EmailFormRequest;
 import com.odin.odinbff.controller.commons.PhoneFormRequest;
 import com.odin.odinbff.controller.purveyor.PurveyorFormRequest;

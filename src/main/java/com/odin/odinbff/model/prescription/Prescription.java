@@ -1,5 +1,7 @@
 package com.odin.odinbff.model.prescription;
 
+import com.odin.odinbff.model.HasLongId;
+import com.odin.odinbff.model.audit.HistoryLoggable;
 import com.odin.odinbff.model.client.Client;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Prescription {
+public final class Prescription extends HistoryLoggable<Prescription> implements HasLongId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class Prescription {
     @ManyToOne(optional = false)
     private final Client client;
 
-    @OneToMany(mappedBy = "prescription", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id.prescription", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final Set<VisionProblem> problems = new HashSet<>();
 
     @CreationTimestamp

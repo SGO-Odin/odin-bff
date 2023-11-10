@@ -1,4 +1,4 @@
-package com.odin.odinbff.controller.serviceorder;
+package com.odin.odinbff.controller.serviceorder.response;
 
 import com.odin.odinbff.model.prescription.VisionProblem;
 

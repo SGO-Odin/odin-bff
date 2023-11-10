@@ -2,9 +2,7 @@ package com.odin.odinbff.controller.client;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.controller.address.AddressFormRequest;
-import com.odin.odinbff.controller.address.PublicPlaceResponse;
-import com.odin.odinbff.controller.commons.EmailFormRequest;
+import com.odin.odinbff.controller.address.request.AddressFormRequest;
 import com.odin.odinbff.controller.commons.PhoneFormRequest;
 import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.model.Cpf;
@@ -16,7 +14,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Set;

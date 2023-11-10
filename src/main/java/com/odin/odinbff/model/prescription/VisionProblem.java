@@ -1,9 +1,10 @@
 package com.odin.odinbff.model.prescription;
 
+import com.odin.odinbff.model.audit.HistoryLoggable;
 import jakarta.persistence.*;
 
 @Entity
-public class VisionProblem {
+public class VisionProblem extends HistoryLoggable<VisionProblem> {
 
     public enum PositionOfEyesType {
         RIGHT,
@@ -15,17 +16,9 @@ public class VisionProblem {
         NEAR
     }
 
-    @OneToOne
-    @Id
-    private final Prescription prescription;
+    @EmbeddedId
+    private final Pk id;
 
-    @Id
-    @Enumerated(EnumType.STRING)
-    private final Types type;
-
-    @Id
-    @Enumerated(EnumType.STRING)
-    private final PositionOfEyesType positionOfEyes;
     private final Float spherical;
     private final Float cylinder;
     private final Float axis;
@@ -56,9 +49,7 @@ public class VisionProblem {
                          Float axis,
                          Float npd,
                          Float height) {
-        this.prescription = prescription;
-        this.type = type;
-        this.positionOfEyes = positionOfEyes;
+        this.id = new Pk(prescription, type, positionOfEyes);
         this.spherical = spherical;
         this.cylinder = cylinder;
         this.axis = axis;
@@ -67,15 +58,15 @@ public class VisionProblem {
     }
 
     public Prescription getPrescription () {
-        return prescription;
+        return id.prescription;
     }
 
     public Types getType () {
-        return type;
+        return id.type;
     }
 
     public PositionOfEyesType getPositionOfEyes () {
-        return positionOfEyes;
+        return id.positionOfEyes;
     }
 
     public Float getSpherical () {
@@ -96,5 +87,23 @@ public class VisionProblem {
 
     public Float getHeight () {
         return height;
+    }
+
+    @Embeddable
+    private static final class Pk {
+        @ManyToOne(optional = false)
+        private final Prescription prescription;
+
+        @Enumerated(EnumType.STRING)
+        private final Types type;
+
+        @Enumerated(EnumType.STRING)
+        private final PositionOfEyesType positionOfEyes;
+
+        private Pk(Prescription prescription, Types type, PositionOfEyesType positionOfEyes) {
+            this.prescription = prescription;
+            this.type = type;
+            this.positionOfEyes = positionOfEyes;
+        }
     }
 }

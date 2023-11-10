@@ -1,5 +1,6 @@
-package com.odin.odinbff.controller.address;
+package com.odin.odinbff.controller.address.response;
 
+import com.odin.odinbff.controller.address.response.CityResponse;
 import com.odin.odinbff.model.address.District;
 
 public class DistrictResponse {

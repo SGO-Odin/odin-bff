@@ -1,4 +1,4 @@
-package com.odin.odinbff.controller.serviceorder;
+package com.odin.odinbff.controller.serviceorder.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -24,11 +24,7 @@ public final class  ServiceOrderProductFormRequest {
         this.quantity = quantity;
     }
 
-    Product toModel(final ProductRepository productRepository) {
-        return productRepository.getReferenceById(productId);
-    }
-
-    public Short getQuantity() {
-        return quantity;
+    public void addToModel(final ProductRepository productRepository, final ServiceOrder serviceOrder) {
+        serviceOrder.addProduct(productRepository.getReferenceById(productId), quantity);
     }
 }

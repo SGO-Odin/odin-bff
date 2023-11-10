@@ -1,7 +1,8 @@
-package com.odin.odinbff.controller.serviceorder;
+package com.odin.odinbff.controller.serviceorder.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.odin.odinbff.controller.product.ProductResponse;
+import com.odin.odinbff.controller.serviceorder.response.PrescriptionResponse;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
 
 import java.math.BigDecimal;
@@ -28,7 +29,7 @@ public final class ServiceOrderResponse {
     public Set<ProductResponse> getProducts() {
         return serviceOrder.getProducts()
                 .stream()
-                .map(ProductResponse::new)
+                .map(sop -> new ProductResponse(sop.getProduct()))
                 .collect(Collectors.toUnmodifiableSet());
     }
 
@@ -46,11 +47,6 @@ public final class ServiceOrderResponse {
 
     public ServiceOrder.StatusType getStatus() {
         return serviceOrder.getStatus();
-    }
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH::mm:ss")
-    public LocalDateTime getOpenedOn() {
-        return serviceOrder.getOpenedOn();
     }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH::mm:ss")

@@ -2,6 +2,7 @@ package com.odin.odinbff.model.client;
 
 import com.odin.odinbff.model.Cpf;
 import com.odin.odinbff.model.Email;
+import com.odin.odinbff.model.HasLongId;
 import com.odin.odinbff.model.Phone;
 import com.odin.odinbff.model.address.Address;
 import jakarta.persistence.*;
@@ -16,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public final class Client {
+public final class Client implements HasLongId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

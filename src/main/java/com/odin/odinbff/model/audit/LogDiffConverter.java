@@ -13,17 +13,17 @@ import java.util.Map;
 public class LogDiffConverter
         implements AttributeConverter<Map<String, Object>, String>, Serializable {
 
-
-
         @Override public String convertToDatabaseColumn (Map<String, Object> attribute){
             if (attribute == null) {
                 return null;
             }
+
             try {
                 return new ObjectMapper().writeValueAsString(attribute);
             } catch (JsonProcessingException e) {
-                return null;
+                throw new RuntimeException(e);
             }
+
         }
 
         @Override public Map<String, Object> convertToEntityAttribute (String dbData){
@@ -33,7 +33,7 @@ public class LogDiffConverter
             try {
                 return new ObjectMapper().readValue(dbData, new TypeReference<>() {} );
             } catch (JsonProcessingException e) {
-                return null;
+                throw new RuntimeException(e);
             }
         }
     }

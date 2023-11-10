@@ -1,13 +1,16 @@
 package com.odin.odinbff.model.serviceorder;
 
+import com.odin.odinbff.model.HasLongId;
+import com.odin.odinbff.model.audit.HistoryLoggable;
 import com.odin.odinbff.model.product.Product;
 import jakarta.persistence.*;
 import org.jetbrains.annotations.Contract;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
-public class ServiceOrderProduct {
+public class ServiceOrderProduct extends HistoryLoggable<ServiceOrderProduct> {
     @Id
     @ManyToOne
     private final ServiceOrder serviceOrder;
@@ -32,7 +35,6 @@ public class ServiceOrderProduct {
 
 
     public ServiceOrderProduct(ServiceOrder serviceOrder, Product product, Short quantity) {
-
         this.serviceOrder = serviceOrder;
         this.product = product;
         this.quantity = quantity;
@@ -59,4 +61,8 @@ public class ServiceOrderProduct {
         return salePrice.multiply(BigDecimal.valueOf(quantity));
     }
 
+    @Override
+    protected Set<String> attrToUpdateLog() {
+        return Set.of();
+    }
 }

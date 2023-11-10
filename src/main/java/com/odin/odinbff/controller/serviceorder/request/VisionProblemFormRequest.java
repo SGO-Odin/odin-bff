@@ -1,11 +1,13 @@
-package com.odin.odinbff.controller.serviceorder;
+package com.odin.odinbff.controller.serviceorder.request;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.odinbff.model.prescription.Prescription;
 import com.odin.odinbff.model.prescription.VisionProblem;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-public class VisionProblemFormRequest {
+public final class VisionProblemFormRequest {
     @JsonProperty
     @NotNull
     private final VisionProblem.Types type;
@@ -16,15 +18,20 @@ public class VisionProblemFormRequest {
     @JsonProperty
     @NotNull
     private final Float spherical;
+    @NotNull
     @JsonProperty
     private final Float cylinder;
+    @NotNull
     @JsonProperty
     private final Float axis;
+    @NotNull
     @JsonProperty
     private final Float npd;
+    @NotNull
     @JsonProperty
     private final Float height;
 
+    @JsonCreator
     public VisionProblemFormRequest(final VisionProblem.Types type,
                                     final VisionProblem.PositionOfEyesType positionOfEyes,
                                     final Float spherical,

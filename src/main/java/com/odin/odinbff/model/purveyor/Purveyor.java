@@ -1,6 +1,7 @@
 package com.odin.odinbff.model.purveyor;
 
 import com.odin.odinbff.model.Email;
+import com.odin.odinbff.model.HasLongId;
 import com.odin.odinbff.model.Phone;
 import com.odin.odinbff.model.address.Address;
 import jakarta.persistence.*;
@@ -10,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public final class Purveyor {
+public final class Purveyor implements HasLongId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;

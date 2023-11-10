@@ -1,7 +1,8 @@
-package com.odin.odinbff.controller.address;
+package com.odin.odinbff.controller.address.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.odin.odinbff.controller.address.request.DistrictFormRequest;
 import com.odin.odinbff.model.address.District;
 import com.odin.odinbff.model.address.PublicPlace;
 import com.odin.odinbff.repository.CityRepository;

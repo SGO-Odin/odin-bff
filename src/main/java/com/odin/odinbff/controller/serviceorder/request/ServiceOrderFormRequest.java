@@ -1,11 +1,14 @@
-package com.odin.odinbff.controller.serviceorder;
+package com.odin.odinbff.controller.serviceorder.request;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import com.odin.odinbff.repository.ClientRepository;
 import com.odin.odinbff.repository.ProductRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,12 @@ public final class ServiceOrderFormRequest {
     @JsonProperty
     @NotNull
     private final Long client;
+
+    @JsonProperty
+    @Min(1)
+    @Max(Long.MAX_VALUE)
+    private final Long number;
+
     @JsonProperty
     private final BigDecimal discountValue;
     @JsonProperty
@@ -28,16 +37,21 @@ public final class ServiceOrderFormRequest {
     @NotEmpty
     @JsonProperty
     private final Set<@Valid ServiceOrderProductFormRequest> products;
-    @JsonProperty
+
     @NotNull
+    @Valid
+    @JsonProperty
     private final PrescriptionFormRequest prescription;
 
+    @JsonCreator
     public ServiceOrderFormRequest(final Long client,
+                                   final Long number,
                                    final BigDecimal discountValue,
                                    final BigDecimal additionalValue,
                                    final Set<ServiceOrderProductFormRequest> products,
                                    final PrescriptionFormRequest prescription) {
         this.client = client;
+        this.number = number;
         this.discountValue = discountValue;
         this.additionalValue = additionalValue;
         this.products = products;
@@ -54,13 +68,15 @@ public final class ServiceOrderFormRequest {
         }
 
         final ServiceOrder serviceOrder =  new ServiceOrder(possibleClient.get(),
+                number,
                 discountValue,
                 additionalValue,
                 prescription.toModel(possibleClient.get()));
 
-       products.forEach(product -> {
-           serviceOrder.addProduct(product.toModel(productRepository), product.getQuantity());
+       products.forEach(soProduct -> {
+           soProduct.addToModel(productRepository, serviceOrder);
        });
+
 
         return serviceOrder;
     }

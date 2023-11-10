@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -59,6 +60,8 @@ public final class History {
         this.eventType = eventType;
         this.oldData = oldData;
         this.result = result;
+
+        validate();
     }
 
     public static <Tp extends HistoryLoggable<Tp>> History create (final Tp newEntity)
@@ -89,11 +92,13 @@ public final class History {
         return oldData;
     }
 
-    public Boolean isValid() {
-        return result != null && !result.isEmpty()
-                && ((eventType == EventType.CREATE && oldData == null)
-                    || (eventType == EventType.UPDATED
-                        && oldData != null && !oldData.isEmpty()));
+    private void validate() {
+        if (result == null || result.isEmpty()
+                || (eventType == EventType.CREATE && oldData != null)
+                || (eventType == EventType.UPDATED
+                        && (oldData == null || oldData.isEmpty()))) {
+            throw new IllegalStateException();
+        }
     }
 
     @PrePersist

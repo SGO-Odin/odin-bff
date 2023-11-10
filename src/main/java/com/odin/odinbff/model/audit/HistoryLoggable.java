@@ -2,9 +2,12 @@ package com.odin.odinbff.model.audit;
 
 
 import com.odin.odinbff.model.HasLongId;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -16,24 +19,16 @@ public abstract class HistoryLoggable<T> {
         attrToUpdateLog().forEach(fieldName -> {
             try {
 
-                final Field thisField = this.getClass().getDeclaredField(fieldName);
-                final Field newerField = newer.getClass().getDeclaredField(fieldName);
+                final Field field = this.getClass().getDeclaredField(fieldName);
 
-                newerField.setAccessible(true);
-                thisField.setAccessible(true);
+                field.setAccessible(true);
 
-                final Object thisFieldValue = thisField.get(this);
-                final Object newerFieldValue = newerField.get(newer);
+                final Object thisFieldValue = field.get(this);
+                final Object newerFieldValue = field.get(newer);
 
                 if (!thisFieldValue.equals(newerFieldValue)) {
-                    if (thisFieldValue instanceof HasLongId) {
-                        data.put(fieldName, ((HasLongId) thisFieldValue).getId());
-                    } else if (thisFieldValue instanceof LocalDateTime) {
-                        data.put(fieldName, ((LocalDateTime) thisFieldValue).format(DateTimeFormatter.ISO_DATE_TIME));
-                    } else {
-                        data.put(fieldName, thisFieldValue);
-                    }
-                    thisField.set(this, newerFieldValue);
+                    setLogDataValue(field, thisFieldValue, data);
+                    field.set(this, newerFieldValue);
                 }
 
             } catch (NoSuchFieldException e) {
@@ -46,6 +41,22 @@ public abstract class HistoryLoggable<T> {
         return Collections.unmodifiableMap(data);
     }
 
+    private static void setLogDataValue(final Field field, final Object value, final Map<String, Object> data) {
+        if(field.isAnnotationPresent(OneToMany.class)){
+            return;
+        }
+        if (value instanceof HasLongId) {
+            data.put(field.getName(), ((HasLongId) value).getId());
+        } else if (value instanceof LocalDateTime) {
+            data.put(field.getName(), ((LocalDateTime) value).format(DateTimeFormatter.ISO_DATE_TIME));
+        } else if(value instanceof LocalDate) {
+            data.put(field.getName(), ((LocalDate) value).format(DateTimeFormatter.ISO_DATE));
+        }
+        else {
+            data.put(field.getName(), value);
+        }
+    }
+
     @Transient
     Map<String, Object> logOfAllData() throws IllegalAccessException {
 
@@ -55,18 +66,13 @@ public abstract class HistoryLoggable<T> {
 
         for (Field field : declaredFields) {
             field.setAccessible(true);
-            final Object fieldValue = field.get(this);
-            if (fieldValue instanceof HasLongId) {
-                data.put(field.getName(), ((HasLongId) field.get(this)).getId());
-            } else if (fieldValue instanceof LocalDateTime) {
-                data.put(field.getName(), ((LocalDateTime) fieldValue).format(DateTimeFormatter.ISO_DATE_TIME));
-            } else {
-                data.put(field.getName(), fieldValue);
-            }
+            setLogDataValue(field, field.get(this), data);
         }
         return Collections.unmodifiableMap(data);
     }
 
     @Transient
-    protected abstract Set<String> attrToUpdateLog();
+    protected Set<String> attrToUpdateLog() {
+        return Set.of();
+    }
 }

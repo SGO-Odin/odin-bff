@@ -1,9 +1,8 @@
 package com.odin.odinbff.controller.purveyor;
 
-import com.odin.odinbff.controller.address.AddressResponse;
+import com.odin.odinbff.controller.address.response.AddressResponse;
 import com.odin.odinbff.controller.commons.EmailResponse;
 import com.odin.odinbff.controller.commons.PhoneResponse;
-import com.odin.odinbff.model.address.Address;
 import com.odin.odinbff.model.purveyor.Purveyor;
 
 import java.util.Set;

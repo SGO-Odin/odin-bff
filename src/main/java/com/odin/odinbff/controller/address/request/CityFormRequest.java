@@ -1,4 +1,4 @@
-package com.odin.odinbff.controller.address;
+package com.odin.odinbff.controller.address.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
