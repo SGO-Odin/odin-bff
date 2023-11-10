@@ -143,8 +143,8 @@ public class ServiceOrder implements DiscountAndAdditionalPriceValue {
                 .subtract(discountValue);
     }
 
-    public void addProduct(final Product product, final Short quantity, final BigDecimal salePrice) {
-        products.add(new ServiceOrderProduct(this, product, quantity, salePrice));
+    public void addProduct(final Product product, final Short quantity) {
+        products.add(new ServiceOrderProduct(this, product, quantity));
     }
 
     public LocalDateTime getCreatedOn() {

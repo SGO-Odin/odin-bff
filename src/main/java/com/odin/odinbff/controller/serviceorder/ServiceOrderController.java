@@ -3,6 +3,7 @@ package com.odin.odinbff.controller.serviceorder;
 import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import com.odin.odinbff.repository.ClientRepository;
+import com.odin.odinbff.repository.ProductRepository;
 import com.odin.odinbff.repository.ServiceOrderRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -21,10 +22,14 @@ public class ServiceOrderController  {
 
     public final ClientRepository clientRepository;
 
+    public final ProductRepository productRepository;
+
     public ServiceOrderController(@Autowired final ServiceOrderRepository serviceOrderRepository,
-                                  @Autowired final ClientRepository clientRepository) {
+                                  @Autowired final ClientRepository clientRepository,
+                                  @Autowired final ProductRepository productRepository) {
         this.serviceOrderRepository = serviceOrderRepository;
         this.clientRepository = clientRepository;
+        this.productRepository = productRepository;
     }
 
     @GetMapping(Api.PATH_PARAM_ID)
@@ -38,7 +43,7 @@ public class ServiceOrderController  {
     @Transactional
     public ResponseEntity<Void> save(@Valid @RequestBody final ServiceOrderFormRequest serviceOrderRequest,
                                            @Autowired final UriComponentsBuilder uriBuilder) {
-        final ServiceOrder newServiceOrder = serviceOrderRequest.toModel(clientRepository);
+        final ServiceOrder newServiceOrder = serviceOrderRequest.toModel(clientRepository, productRepository);
         serviceOrderRepository.save(newServiceOrder);
 
         return ResponseEntity.created(

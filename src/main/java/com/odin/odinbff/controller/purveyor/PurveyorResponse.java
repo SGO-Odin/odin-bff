@@ -16,6 +16,8 @@ public class PurveyorResponse {
         this.purveyor = purveyor;
     }
 
+    public Long getId() { return purveyor.getId(); }
+
     public String getTradingName() {
         return purveyor.getTradingName();
     }

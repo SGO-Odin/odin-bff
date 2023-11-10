@@ -27,16 +27,16 @@ public class ServiceOrderProduct {
      */
     @Deprecated
     private ServiceOrderProduct() {
-        this(null, null, null, null);
+        this(null, null, null);
     }
 
 
-    public ServiceOrderProduct(ServiceOrder serviceOrder, Product product, Short quantity, BigDecimal salePrice) {
+    public ServiceOrderProduct(ServiceOrder serviceOrder, Product product, Short quantity) {
 
         this.serviceOrder = serviceOrder;
         this.product = product;
         this.quantity = quantity;
-        this.salePrice = salePrice;
+        this.salePrice = product.getCurrentSalePrice();
     }
 
     public ServiceOrder getServiceOrder() {
