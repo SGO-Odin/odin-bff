@@ -40,7 +40,7 @@ public class ProductController {
 				.collect(Collectors.toList());
 	}
 
-	@GetMapping(Api.Product.PRODUCT_READ_BY_ID)
+	@GetMapping(Api.PATH_PARAM_ID)
 	public Optional<ProductResponse> get(@PathVariable final Long id) {
 		return Optional.of(productRepository.getReferenceById(id)).map(ProductResponse::new);
 	}
