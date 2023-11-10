@@ -1,5 +1,6 @@
 package com.odin.odinbff.controller.purveyor;
 
+import com.odin.odinbff.controller.address.AddressResponse;
 import com.odin.odinbff.controller.commons.EmailResponse;
 import com.odin.odinbff.controller.commons.PhoneResponse;
 import com.odin.odinbff.model.address.Address;
@@ -27,14 +28,13 @@ public class PurveyorResponse {
         return purveyor.isLaboratory();
     }
 
-    public Address getAddress() {
-        return purveyor.getAddress();
+    public AddressResponse getAddress() {
+        return new AddressResponse(purveyor.getAddress());
     }
 
     public Set<PhoneResponse> getPhones() {
         return purveyor.getPhones().stream().map(
-                purveyorPhone -> new PhoneResponse(purveyorPhone.getPhone(), purveyorPhone.isMain()
-                )
+                purveyorPhone -> new PhoneResponse(purveyorPhone.getPhone(), purveyorPhone.isMain())
         ).collect(Collectors.toUnmodifiableSet());
     }
 

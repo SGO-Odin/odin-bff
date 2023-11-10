@@ -37,7 +37,7 @@ class ClientControllerTest extends BaseControllerTest {
                 "0000000000",
                 new AddressFormRequest("00000000",
                         new PublicPlaceFormRequest("cityName",
-                                null, PublicPlace.Types.STREET.name(),
+                                null, PublicPlace.Types.STREET,
                                 new DistrictFormRequest("districtName",
                                         null, new CityFormRequest("cityName",
                                                 State.StateAcronyms.AL))),

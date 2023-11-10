@@ -39,7 +39,7 @@ final class PurveyorControllerTest extends BaseControllerTest {
                 false,
                 new AddressFormRequest("00000000",
                         new PublicPlaceFormRequest("cityName",
-                                null, PublicPlace.Types.STREET.name(),
+                                null, PublicPlace.Types.STREET,
                         new DistrictFormRequest("districtName",
                                 null, new CityFormRequest("cityName",
                                         State.StateAcronyms.AL))),

@@ -29,12 +29,12 @@ public final class PublicPlaceFormRequest {
 
     @JsonProperty
     @NotNull
-    private final String type;
+    private final PublicPlace.Types type;
 
     @JsonCreator
     public PublicPlaceFormRequest(final String name,
                                   final Long existingDistrictId,
-                                  final String type,
+                                  final PublicPlace.Types type,
                                   final DistrictFormRequest district) {
         this.name = name.trim();
         this.existingDistrictId = existingDistrictId;
@@ -59,11 +59,11 @@ public final class PublicPlaceFormRequest {
             }
 
             return new PublicPlace(name, null,
-                    PublicPlace.Types.valueOf(type),
+                    type,
                     district);
         } else {
             return new PublicPlace(name, null,
-                    PublicPlace.Types.valueOf(type),
+                    type,
                     districtRepository.getReferenceById(existingDistrictId));
         }
     }
