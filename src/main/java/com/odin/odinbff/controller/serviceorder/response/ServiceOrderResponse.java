@@ -3,6 +3,7 @@ package com.odin.odinbff.controller.serviceorder.response;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.odin.odinbff.controller.product.ProductResponse;
 import com.odin.odinbff.controller.serviceorder.response.PrescriptionResponse;
+import com.odin.odinbff.model.sale.Payment;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import jakarta.transaction.Transactional;
 
@@ -72,5 +73,9 @@ public final class ServiceOrderResponse {
 
     public BigDecimal getAmountTotal() {
         return serviceOrder.calculateFinalPriceValue();
+    }
+
+    public Set<Payment> getPayments() {
+        return serviceOrder.payments();
     }
 }
