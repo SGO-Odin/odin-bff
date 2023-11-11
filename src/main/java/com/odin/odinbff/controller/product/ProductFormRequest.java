@@ -7,33 +7,44 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.odinbff.model.product.Product;
 import com.odin.odinbff.repository.BrandRepository;
 import com.odin.odinbff.repository.PurveyorReposioty;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 public class ProductFormRequest {
 
 	@JsonProperty
 	private final String reference;
+	@NotBlank
 	@JsonProperty
 	private final String name;
 	@JsonProperty
+	@NotNull
 	@JsonEnumDefaultValue
 	private final Product.UnitType unitType;
+	@NotNull
 	@JsonProperty
 	private final Long brand;
 	@JsonProperty
+	@NotNull
 	private final Long purveyor;
 	@JsonProperty
+	@NotNull
 	private final Boolean isActive;
 	@JsonProperty
+	@NotNull
 	private final Boolean inventoryControl;
 	@JsonProperty
+	@DecimalMin("0.05")
 	private final BigDecimal purchaseCost;
 	@JsonProperty
+	@DecimalMin(value = "0.05")
 	private final BigDecimal currentSalePrice;
+	@PositiveOrZero
 	@JsonProperty
+	@NotNull
 	private final Short currentStock;
 	@JsonProperty
+	@PositiveOrZero
+	@NotNull
 	private final Short minStock;
 	@JsonProperty
 	private final String location;

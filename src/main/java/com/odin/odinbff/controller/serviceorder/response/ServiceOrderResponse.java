@@ -27,13 +27,11 @@ public final class ServiceOrderResponse {
         return serviceOrder.getClient().getId();
     }
 
-    public Set<ProductResponse> getProducts() {
-        var r = serviceOrder.getProducts()
+    public Set<ServiceOrderProductResponse> getProducts() {
+        return serviceOrder.getProducts()
                 .stream()
-                .map(sop -> new ProductResponse(sop.getProduct()))
+                .map(ServiceOrderProductResponse::new)
                 .collect(Collectors.toUnmodifiableSet());
-
-        return r;
     }
 
     public BigDecimal getDiscountValue() {
@@ -70,5 +68,9 @@ public final class ServiceOrderResponse {
 
     public LocalDateTime getUpdatedOn() {
         return serviceOrder.getUpdatedOn();
+    }
+
+    public BigDecimal getAmountTotal() {
+        return serviceOrder.calculateFinalPriceValue();
     }
 }

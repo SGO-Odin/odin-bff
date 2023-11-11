@@ -117,10 +117,8 @@ public final class ServiceOrder extends HistoryLoggable<ServiceOrder>
     }
 
     public Set<ServiceOrderProduct> getProducts() {
-        return products;
+        return Collections.unmodifiableSet(products);
     }
-
-
 
     public BigDecimal getDiscountValue() {
         return discountValue;
@@ -159,15 +157,7 @@ public final class ServiceOrder extends HistoryLoggable<ServiceOrder>
                 .subtract(discountValue);
     }
 
-    public void addServiceOrderProduct(ServiceOrderProduct serviceOrderProduct) {
-        products.add(serviceOrderProduct);
-    }
-
-    public void addProduct(ServiceOrderProduct product) {
-        products.add(product);
-    }
-
-    public void addProd(final Product product, final Short quantity) {
+    public void addProduct(final Product product, final Short quantity) {
         products.add(new ServiceOrderProduct(this, product, quantity));
     }
 

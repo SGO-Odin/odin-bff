@@ -23,6 +23,6 @@ public final class  ServiceOrderProductFormRequest {
     }
 
     public void addToModel(final ProductRepository productRepository, final ServiceOrder serviceOrder) {
-        serviceOrder.addProd(productRepository.getReferenceById(productId), quantity);
+        serviceOrder.addProduct(productRepository.getReferenceById(productId), quantity);
     }
 }
