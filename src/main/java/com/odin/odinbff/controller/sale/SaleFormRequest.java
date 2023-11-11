@@ -3,6 +3,7 @@ package com.odin.odinbff.controller.sale;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.odinbff.model.sale.Sale;
+import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import com.odin.odinbff.repository.ClientRepository;
 import com.odin.odinbff.repository.ProductRepository;
 import com.odin.odinbff.repository.ServiceOrderRepository;
@@ -11,6 +12,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import java.util.Optional;
 import java.util.Set;
 
 public final class SaleFormRequest {
@@ -48,8 +50,11 @@ public final class SaleFormRequest {
                         final ProductRepository productRepository) {
 
         final var client = clientRepository.getReferenceById(clientId);
-        final var serviceOrder = serviceOrderRepository.findById(serviceOrderId);
-        final var sale = new Sale(client, serviceOrder.orElse(null));
+
+        final var sale = new Sale(
+                client,
+                Optional.of(serviceOrderId).flatMap(serviceOrderRepository::findById)
+                .orElse(null));
 
         // todo: retrieve all ids in a single query (create repository methods) ->>
 
