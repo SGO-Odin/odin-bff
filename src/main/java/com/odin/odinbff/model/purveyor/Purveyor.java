@@ -107,6 +107,6 @@ public final class Purveyor extends HistoryLoggable<Purveyor> implements HasLong
 
     @Override
     public Boolean isActive() {
-        return null;
+        return isActive;
     }
 }
