@@ -23,8 +23,10 @@ public class PaymentFormRequest {
     private final BigDecimal amount;
 
     @Positive
+    @JsonProperty
     private final Byte quantityInstallments;
 
+    @JsonCreator
     protected PaymentFormRequest(final Payment.Type type, final BigDecimal amount, final Byte quantityInstallments) {
         this.type = type;
         this.amount = amount;
