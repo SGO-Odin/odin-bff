@@ -8,6 +8,7 @@ import com.odin.odinbff.repository.ClientRepository;
 import com.odin.odinbff.repository.ProductRepository;
 import com.odin.odinbff.repository.ServiceOrderRepository;
 import com.odin.odinbff.service.ServiceOrderService;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,28 +18,30 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(Api.ServiceOrder.SERVICE_ORDER_RESOURCE)
 public class ServiceOrderController  {
 
-    public final ServiceOrderRepository serviceOrderRepository;
+    private final ServiceOrderRepository serviceOrderRepository;
 
-    public final ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
-    public final ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    public final ServiceOrderService serviceOrderService;
+    private final ServiceOrderService serviceOrderService;
+
+    private final EntityManager entityManager;
 
     public ServiceOrderController(@Autowired final ServiceOrderRepository serviceOrderRepository,
                                   @Autowired final ClientRepository clientRepository,
                                   @Autowired final ProductRepository productRepository,
-                                  @Autowired final ServiceOrderService serviceOrderService) {
+                                  @Autowired final ServiceOrderService serviceOrderService,
+                                  @Autowired final EntityManager entityManager) {
         this.serviceOrderRepository = serviceOrderRepository;
         this.clientRepository = clientRepository;
         this.productRepository = productRepository;
         this.serviceOrderService = serviceOrderService;
+        this.entityManager = entityManager;
     }
 
     @GetMapping
@@ -71,7 +74,7 @@ public class ServiceOrderController  {
     @Transactional
     public ResponseEntity<Void> save(@Valid @RequestBody final ServiceOrderFormRequest serviceOrderRequest,
                                            @Autowired final UriComponentsBuilder uriBuilder) throws NoSuchFieldException, IllegalAccessException {
-        final ServiceOrder newServiceOrder = serviceOrderRequest.toModel(clientRepository, productRepository);
+        final ServiceOrder newServiceOrder = serviceOrderRequest.toModel(clientRepository, productRepository, entityManager);
         serviceOrderService.save(newServiceOrder);
 
         return ResponseEntity.created(

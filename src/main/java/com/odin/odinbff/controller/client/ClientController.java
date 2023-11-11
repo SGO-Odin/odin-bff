@@ -3,6 +3,7 @@ package com.odin.odinbff.controller.client;
 import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.repository.*;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,27 @@ public class ClientController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @PatchMapping(Api.PATH_PARAM_ID_INACTIVATE)
+    public ResponseEntity<?> inactivate(@PathVariable final Long id) {
+//        return clientRepository.findById(id).map(client -> {
+//            client.inactivate();
+//            brandRepository.save(o);
+//            return ResponseEntity.noContent().build();
+//        }).orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.internalServerError().build();
+
+    }
+
+    @PatchMapping(Api.PATH_PARAM_ID_ACTIVATE)
+    public ResponseEntity<?> activate(@PathVariable final Long id) {
+//        return brandRepository.findById(id).map(o -> {
+//            o.activate();
+//            brandRepository.save(o);
+//            return ResponseEntity.noContent().build();
+//        }).orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.internalServerError().build();
     }
 
     @GetMapping

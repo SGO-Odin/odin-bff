@@ -50,6 +50,9 @@ public final class Client implements HasLongId {
     @OneToMany(mappedBy = "id.client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private final Set<ClientPhone> phones = new HashSet<>();
 
+    @Column(nullable = false)
+    private Boolean isActive = true;
+
     /**
      * Don't use. Don't remove. Requires by JPA.
      */
