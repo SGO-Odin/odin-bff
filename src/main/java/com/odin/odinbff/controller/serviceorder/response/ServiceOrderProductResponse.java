@@ -1,7 +1,6 @@
 package com.odin.odinbff.controller.serviceorder.response;
 
 import com.odin.odinbff.controller.product.ProductResponse;
-import com.odin.odinbff.model.product.Product;
 import com.odin.odinbff.model.serviceorder.ServiceOrderProduct;
 
 import java.math.BigDecimal;
@@ -14,7 +13,7 @@ public class ServiceOrderProductResponse {
         this.serviceOrderProduct = serviceOrderProduct;
     }
 
-    public ProductResponse getServiceOrderProduct() {
+    public ProductResponse getProduct() {
         return new ProductResponse(serviceOrderProduct.getProduct());
     }
 
