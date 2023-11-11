@@ -74,8 +74,4 @@ public final class ServiceOrderResponse {
     public BigDecimal getAmountTotal() {
         return serviceOrder.calculateFinalPriceValue();
     }
-
-    public Set<Payment> getPayments() {
-        return serviceOrder.payments();
-    }
 }
