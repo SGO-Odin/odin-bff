@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.odin.odinbff.controller.product.ProductResponse;
 import com.odin.odinbff.controller.serviceorder.response.PrescriptionResponse;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
+import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ public final class ServiceOrderResponse {
 
     private final ServiceOrder serviceOrder;
 
-    public ServiceOrderResponse(ServiceOrder serviceOrder) {
+    public ServiceOrderResponse(final ServiceOrder serviceOrder) {
         this.serviceOrder = serviceOrder;
     }
 
@@ -27,10 +28,12 @@ public final class ServiceOrderResponse {
     }
 
     public Set<ProductResponse> getProducts() {
-        return serviceOrder.getProducts()
+        var r = serviceOrder.getProducts()
                 .stream()
                 .map(sop -> new ProductResponse(sop.getProduct()))
                 .collect(Collectors.toUnmodifiableSet());
+
+        return r;
     }
 
     public BigDecimal getDiscountValue() {

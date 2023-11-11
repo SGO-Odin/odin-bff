@@ -48,9 +48,9 @@ public final class ServiceOrder extends HistoryLoggable<ServiceOrder>
     private LocalDateTime updatedOn;
 
     @OneToMany(mappedBy = "serviceOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private final Set<ServiceOrderProduct> products = new HashSet<>();
+    private Set<ServiceOrderProduct> products = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private final Set<Payment> payments = new HashSet<>();
 
     /**
@@ -117,8 +117,10 @@ public final class ServiceOrder extends HistoryLoggable<ServiceOrder>
     }
 
     public Set<ServiceOrderProduct> getProducts() {
-        return Collections.unmodifiableSet(products);
+        return products;
     }
+
+
 
     public BigDecimal getDiscountValue() {
         return discountValue;
@@ -157,7 +159,15 @@ public final class ServiceOrder extends HistoryLoggable<ServiceOrder>
                 .subtract(discountValue);
     }
 
-    public void addProduct(final Product product, final Short quantity) {
+    public void addServiceOrderProduct(ServiceOrderProduct serviceOrderProduct) {
+        products.add(serviceOrderProduct);
+    }
+
+    public void addProduct(ServiceOrderProduct product) {
+        products.add(product);
+    }
+
+    public void addProd(final Product product, final Short quantity) {
         products.add(new ServiceOrderProduct(this, product, quantity));
     }
 

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class PrescriptionResponse {
+public final class PrescriptionResponse {
 
     private final Prescription prescription;
 

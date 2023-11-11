@@ -10,13 +10,13 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
-public class ServiceOrderProduct extends HistoryLoggable<ServiceOrderProduct> {
+public final class ServiceOrderProduct extends HistoryLoggable<ServiceOrderProduct> {
     @Id
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private final ServiceOrder serviceOrder;
 
     @Id
-    @ManyToOne
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private final Product product;
 
     @Column(nullable = false)
@@ -30,11 +30,14 @@ public class ServiceOrderProduct extends HistoryLoggable<ServiceOrderProduct> {
      */
     @Deprecated
     private ServiceOrderProduct() {
-        this(null, null, null);
+        product = null;
+        serviceOrder = null;
+        quantity = null;
+        salePrice = null;
     }
 
 
-    public ServiceOrderProduct(ServiceOrder serviceOrder, Product product, Short quantity) {
+    public ServiceOrderProduct(final ServiceOrder serviceOrder, final Product product, final Short quantity) {
         this.serviceOrder = serviceOrder;
         this.product = product;
         this.quantity = quantity;

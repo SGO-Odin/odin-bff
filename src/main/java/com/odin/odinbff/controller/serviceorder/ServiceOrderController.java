@@ -43,10 +43,21 @@ public class ServiceOrderController  {
 
     @GetMapping
     @Transactional
-    public List<ServiceOrderResponse> getAllOpen(@RequestParam Long clientId) {
-        return serviceOrderRepository.findByStatusAndClient_id(ServiceOrder.StatusType.OPENED, clientId)
-                .stream().map(ServiceOrderResponse::new)
-                .toList();
+    public ResponseEntity<?> getAllOpen(@RequestParam(required = false) Long clientId) {
+        try {
+            if (clientId == null) {
+                return ResponseEntity.ok(serviceOrderRepository.findByStatus(ServiceOrder.StatusType.OPENED)
+                        .stream().map(ServiceOrderResponse::new)
+                        .toList());
+            } else {
+
+                return ResponseEntity.ok(serviceOrderRepository.findByStatusAndClient_id(ServiceOrder.StatusType.OPENED, clientId)
+                        .stream().map(ServiceOrderResponse::new)
+                        .toList());
+            }
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.toString());
+        }
     }
 
     @GetMapping(Api.PATH_PARAM_ID)

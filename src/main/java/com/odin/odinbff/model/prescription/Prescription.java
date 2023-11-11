@@ -67,7 +67,6 @@ public final class Prescription extends HistoryLoggable<Prescription> implements
         return client;
     }
 
-    @Transient
     public Set<VisionProblem> getProblems() {
         return Collections.unmodifiableSet(problems);
     }

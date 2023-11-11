@@ -2,9 +2,7 @@ package com.odin.odinbff.controller.serviceorder.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.model.product.Product;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
-import com.odin.odinbff.model.serviceorder.ServiceOrderProduct;
 import com.odin.odinbff.repository.ProductRepository;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -25,6 +23,6 @@ public final class  ServiceOrderProductFormRequest {
     }
 
     public void addToModel(final ProductRepository productRepository, final ServiceOrder serviceOrder) {
-        serviceOrder.addProduct(productRepository.getReferenceById(productId), quantity);
+        serviceOrder.addProd(productRepository.getReferenceById(productId), quantity);
     }
 }

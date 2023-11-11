@@ -2,7 +2,6 @@ package com.odin.odinbff.model.sale;
 
 import com.odin.odinbff.model.HasLongId;
 import com.odin.odinbff.model.audit.HistoryLoggable;
-import com.odin.odinbff.model.sale.Sale;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +34,14 @@ public final class Payment extends HistoryLoggable<Payment> implements HasLongId
     @ManyToOne
     private ServiceOrder serviceOrder;
 
+    /**
+     * Don't use. Don't remove. Requires by JPA.
+     */
+    @Deprecated
+    private Payment() {
+        this(null, null, null, null);
+    }
+
     public Payment(final Long id, final Type type, final BigDecimal amount, final Byte quantityInstallments) {
         this.id = id;
         this.type = type;
@@ -51,7 +58,7 @@ public final class Payment extends HistoryLoggable<Payment> implements HasLongId
     }
 
     public void setSale(@NotNull Sale sale) {
-        if(sale == null)
+        if (sale == null)
             throw new IllegalArgumentException("sale não pode ser null!");
         this.sale = sale;
     }
@@ -66,7 +73,7 @@ public final class Payment extends HistoryLoggable<Payment> implements HasLongId
     }
 
     public void setServiceOrder(@NotNull ServiceOrder serviceOrder) {
-        if(serviceOrder == null)
+        if (serviceOrder == null)
             throw new IllegalArgumentException("serviceOrder não pode ser null!");
         this.serviceOrder = serviceOrder;
     }
@@ -84,8 +91,8 @@ public final class Payment extends HistoryLoggable<Payment> implements HasLongId
         BigDecimal result = amount.divide(qttInstallments, 2, RoundingMode.DOWN);
 
         BigDecimal[] values = new BigDecimal[quantityInstallments];
-        for (byte i = 0; i<=quantityInstallments; i++) {
-           values[i] = result;
+        for (byte i = 0; i <= quantityInstallments; i++) {
+            values[i] = result;
         }
 
         values[1] = values[1].add(amount.subtract(result.multiply(qttInstallments)));
@@ -97,12 +104,8 @@ public final class Payment extends HistoryLoggable<Payment> implements HasLongId
         return quantityInstallments > 1;
     }
 
-    public enum Type {
-        CREDIT_CARD, DEBIT_CARD, MONEY, PIX
-    }
-
     private void checkState() {
-        if(sale == null && serviceOrder == null)
+        if (sale == null && serviceOrder == null)
             throw new IllegalStateException("Sales and Service Orders cannot both be null.");
     }
 
@@ -112,7 +115,11 @@ public final class Payment extends HistoryLoggable<Payment> implements HasLongId
     }
 
     @PreUpdate
-    private void preUpdate(){
+    private void preUpdate() {
         checkState();
+    }
+
+    public enum Type {
+        CREDIT_CARD, DEBIT_CARD, MONEY, PIX
     }
 }

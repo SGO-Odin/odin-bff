@@ -4,7 +4,7 @@ import com.odin.odinbff.model.serviceorder.ServiceOrderProduct;
 import jakarta.persistence.*;
 
 @Entity
-public class SaleServiceOrderProduct {
+public final class SaleServiceOrderProduct {
     @Id
     @ManyToOne(optional = false)
     @JoinColumns({@JoinColumn(name = "serviceOrder"), @JoinColumn(name = "product")})
@@ -14,6 +14,15 @@ public class SaleServiceOrderProduct {
     @ManyToOne(optional = false)
     @JoinColumns({@JoinColumn(name = "sale"), @JoinColumn(name = "product")})
     private final SaleProduct saleProduct;
+
+    /**
+     * Don't use. Don't remove. Requires by JPA.
+     */
+    @Deprecated
+    private SaleServiceOrderProduct(){
+        saleProduct = null;
+        serviceOrderProduct = null;
+    }
 
     /**
      *

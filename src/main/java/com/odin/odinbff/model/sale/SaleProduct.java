@@ -20,6 +20,14 @@ public final class SaleProduct implements CalculableTotal {
     private final BigDecimal salePrice;
     private final Short quantity;
 
+    /**
+     * Don't use. Don't remove. Requires by JPA.
+     */
+    @Deprecated
+    private SaleProduct() {
+        this(null, null, null, null);
+    }
+
     private SaleProduct(Sale sale, Product product, BigDecimal salePrice, Short quantity) {
         this.sale = sale;
         this.product = product;

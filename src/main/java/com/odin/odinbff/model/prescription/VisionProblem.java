@@ -4,7 +4,7 @@ import com.odin.odinbff.model.audit.HistoryLoggable;
 import jakarta.persistence.*;
 
 @Entity
-public class VisionProblem extends HistoryLoggable<VisionProblem> {
+public final class VisionProblem extends HistoryLoggable<VisionProblem> {
 
     public enum PositionOfEyesType {
         RIGHT,
@@ -104,6 +104,14 @@ public class VisionProblem extends HistoryLoggable<VisionProblem> {
             this.prescription = prescription;
             this.type = type;
             this.positionOfEyes = positionOfEyes;
+        }
+
+        /**
+         * Don't use. Don't remove. Requires by JPA.
+         */
+        @Deprecated
+        private Pk() {
+            this(null, null, null);
         }
     }
 }
