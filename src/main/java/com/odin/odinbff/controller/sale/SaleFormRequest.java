@@ -53,7 +53,7 @@ public final class SaleFormRequest {
 
         final var sale = new Sale(
                 client,
-                Optional.of(serviceOrderId).flatMap(serviceOrderRepository::findById)
+                Optional.ofNullable(serviceOrderId).flatMap(serviceOrderRepository::findById)
                 .orElse(null));
 
         // todo: retrieve all ids in a single query (create repository methods) ->>
