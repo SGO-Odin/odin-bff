@@ -2,10 +2,7 @@ package com.odin.odinbff.controller.sale;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.model.sale.Sale;
-import com.odin.odinbff.model.sale.SaleProduct;
-import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import com.odin.odinbff.repository.ClientRepository;
 import com.odin.odinbff.repository.ProductRepository;
 import com.odin.odinbff.repository.ServiceOrderRepository;
@@ -14,7 +11,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-import java.util.Optional;
 import java.util.Set;
 
 public final class SaleFormRequest {

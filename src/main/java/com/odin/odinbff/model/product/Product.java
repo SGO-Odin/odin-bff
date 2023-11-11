@@ -211,6 +211,6 @@ public final class Product implements HasLongId {
         PIECE,
         PAIR,
         KIT,
-        BOTTLE;
+        BOTTLE
     }
 }
