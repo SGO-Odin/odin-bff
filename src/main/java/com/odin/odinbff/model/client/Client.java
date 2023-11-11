@@ -49,7 +49,7 @@ public final class Client extends HistoryLoggable<Client> implements HasLongId, 
     private final Set<ClientPhone> phones = new HashSet<>();
 
     @Column(nullable = false)
-    private Boolean isActive = true;
+    private Boolean isActive;
 
     /**
      * Don't use. Don't remove. Requires by JPA.
@@ -79,6 +79,7 @@ public final class Client extends HistoryLoggable<Client> implements HasLongId, 
         this.address = address;
         this.createdOn = createdOn;
         this.updatedOn = updatedOn;
+        this.isActive = true;
     }
 
     public void addEmail(final Email email, final Boolean isMain) {

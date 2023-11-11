@@ -3,7 +3,7 @@ package com.odin.odinbff.model.address;
 import jakarta.persistence.*;
 
 @Entity
-public class Address {
+public final class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;

@@ -3,7 +3,7 @@ package com.odin.odinbff.model.address;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class ZipCode {
+public final class ZipCode {
     private final String zipCode;
 
     public ZipCode (String zipCode) {

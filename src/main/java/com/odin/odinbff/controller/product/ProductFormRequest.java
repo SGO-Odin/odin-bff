@@ -82,7 +82,6 @@ public class ProductFormRequest {
 				unitType,
 				brandRepository.getReferenceById(brand),
 				purveyorReposioty.getReferenceById(purveyor),
-				isActive,
 				inventoryControl,
 				purchaseCost,
 				currentSalePrice,

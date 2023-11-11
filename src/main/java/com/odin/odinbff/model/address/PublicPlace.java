@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(uniqueConstraints = {
     @UniqueConstraint(name = PublicPlace.CONSTRAINT_NAME_DISTRICT, columnNames = {"name", "district_id"})
 })
-public class PublicPlace {
+public final class PublicPlace {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

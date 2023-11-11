@@ -43,7 +43,7 @@ public final class Purveyor extends HistoryLoggable<Purveyor> implements HasLong
     }
 
     public Purveyor(String tradingName, String companyName, Boolean isLaboratory, Address address) {
-        this(null, tradingName, companyName, isLaboratory, address, null);
+        this(null, tradingName, companyName, isLaboratory, address, true);
     }
 
     private Purveyor(Long id,
