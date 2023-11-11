@@ -178,6 +178,10 @@ public final class ServiceOrder extends HistoryLoggable<ServiceOrder>
         payments.add(payment);
     }
 
+    public Set<Payment> payments() {
+        return Collections.unmodifiableSet(payments);
+    }
+
     public void close() {
         status = StatusType.CLOSED;
         closedOn = LocalDateTime.now();

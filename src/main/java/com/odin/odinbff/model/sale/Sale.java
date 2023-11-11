@@ -6,15 +6,16 @@ import com.odin.odinbff.model.audit.HistoryLoggable;
 import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.model.product.Product;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
+import com.odin.odinbff.model.serviceorder.ServiceOrderProduct;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Sale extends HistoryLoggable<Sale> implements DiscountAndAdditionalPriceValue, Payable, HasLongId {
@@ -22,7 +23,7 @@ public class Sale extends HistoryLoggable<Sale> implements DiscountAndAdditional
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
 
-    @Null
+    @Nullable
     @OneToOne(cascade = CascadeType.ALL)
     private final ServiceOrder importedServiceOrder;
 
@@ -32,11 +33,14 @@ public class Sale extends HistoryLoggable<Sale> implements DiscountAndAdditional
     @OneToMany(mappedBy = "sale", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private final Set<SaleProduct> saleProducts = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany(cascade = CascadeType.ALL)
     private final Set<Payment> payments = new HashSet<>();
 
     @Column(nullable = false)
     private LocalDateTime createdOn;
+
+    @Transient
+    private final Map<Long, ServiceOrderProduct> importedSOIds = new HashMap<>();
 
     /**
      * Don't use. Don't remove. Requires by JPA.
@@ -46,13 +50,22 @@ public class Sale extends HistoryLoggable<Sale> implements DiscountAndAdditional
         this(null, null, null);
     }
 
-    private Sale (final Long id, final Client client, final ServiceOrder importedServiceOrder) {
+    private Sale (final Long id, final Client client, @Nullable final ServiceOrder importedServiceOrder) {
         this.id = id;
         this.client = client;
         this.importedServiceOrder = importedServiceOrder;
+
+        if(importedServiceOrder != null) {
+            for(var payment: importedServiceOrder.payments()) {
+                addPayment(payment);
+            }
+            for(var soProduct: importedServiceOrder.getProducts()) {
+                importedSOIds.put(soProduct.getProduct().getId(), soProduct);
+            }
+        }
     }
 
-    public Sale (Client client, ServiceOrder importedServiceOrder) {
+    public Sale (final Client client, @Nullable final ServiceOrder importedServiceOrder) {
         this(null, client, importedServiceOrder);
     }
 
@@ -64,10 +77,7 @@ public class Sale extends HistoryLoggable<Sale> implements DiscountAndAdditional
         return createdOn;
     }
 
-    public boolean hasImportedServiceOrder() {
-        return importedServiceOrder != null;
-    }
-
+    @Nullable
     public ServiceOrder getImportedServiceOrder() {
         return importedServiceOrder;
     }
@@ -80,8 +90,18 @@ public class Sale extends HistoryLoggable<Sale> implements DiscountAndAdditional
         return Collections.unmodifiableSet(saleProducts);
     }
 
-    public void addSaleProduct(Product product, Short quantity) {
-        saleProducts.add(new SaleProduct(this, product, quantity));
+    public void addSaleProduct(Product product, short quantity) {
+        if(importedServiceOrder != null) {
+            if(importedSOIds.containsKey(product.getId())) {
+                var soProduct = importedSOIds.get(product.getId());
+                saleProducts.add(new SaleProduct(
+                        this,
+                        product,
+                        quantity,
+                        quantity != soProduct.getQuantity() ? product.getCurrentSalePrice() : soProduct.getSalePrice()
+                ));
+            }
+        }
     }
 
     public void addPayment(final Payment payment) {
@@ -96,7 +116,7 @@ public class Sale extends HistoryLoggable<Sale> implements DiscountAndAdditional
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public Set<Payment> getPayments(){
+    public Set<Payment> getPayments() {
         return Collections.unmodifiableSet(payments);
     }
 

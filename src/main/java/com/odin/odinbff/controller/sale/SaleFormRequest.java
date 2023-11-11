@@ -28,22 +28,39 @@ public final class SaleFormRequest {
     @JsonProperty
     private final Set<@Valid SaleProductFormRequest> saleProducts;
 
+    @NotEmpty
+    @JsonProperty
+    private final Set<@Valid SalePaymentFormRequest> salePayments;
+
     @JsonCreator
-    public SaleFormRequest(final Long clientId, final Long serviceOrderId, final Set<SaleProductFormRequest> saleProducts) {
+    public SaleFormRequest(final Long clientId,
+                           final Long serviceOrderId,
+                           final Set<SaleProductFormRequest> saleProducts,
+                           final Set<@Valid SalePaymentFormRequest> salePayments) {
         this.clientId = clientId;
         this.serviceOrderId = serviceOrderId;
         this.saleProducts = saleProducts;
+        this.salePayments = salePayments;
     }
 
     public Sale toModel(final ClientRepository clientRepository,
                         final ServiceOrderRepository serviceOrderRepository,
                         final ProductRepository productRepository) {
+
         final var client = clientRepository.getReferenceById(clientId);
         final var serviceOrder = serviceOrderRepository.findById(serviceOrderId);
         final var sale = new Sale(client, serviceOrder.orElse(null));
+
+        // todo: retrieve all ids in a single query (create repository methods) ->>
+
         for(var saleProduct: saleProducts) {
             saleProduct.addToModel(productRepository, sale);
         }
+
+        for (SalePaymentFormRequest salePayment : salePayments) {
+            salePayment.addToModel(sale);
+        }
+
         return sale;
     }
 }

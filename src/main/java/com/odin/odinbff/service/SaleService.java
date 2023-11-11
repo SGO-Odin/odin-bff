@@ -22,7 +22,7 @@ public class SaleService {
     @Transactional
     public void sale(final Sale sale) throws NoSuchFieldException, IllegalAccessException {
 
-        if(sale.hasImportedServiceOrder()) {
+        if(sale.getImportedServiceOrder() != null) {
             sale.getImportedServiceOrder().close();
         }
 

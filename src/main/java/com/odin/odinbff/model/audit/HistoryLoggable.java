@@ -42,7 +42,7 @@ public abstract class HistoryLoggable<T> {
     }
 
     private static void setLogDataValue(final Field field, final Object value, final Map<String, Object> data) {
-        if(field.isAnnotationPresent(OneToMany.class)){
+        if(field.isAnnotationPresent(OneToMany.class) || field.isAnnotationPresent(Transient.class)){
             return;
         }
         if (value instanceof HasLongId) {

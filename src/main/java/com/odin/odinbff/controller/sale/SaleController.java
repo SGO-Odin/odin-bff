@@ -5,6 +5,7 @@ import com.odin.odinbff.repository.ClientRepository;
 import com.odin.odinbff.repository.ProductRepository;
 import com.odin.odinbff.repository.ServiceOrderRepository;
 import com.odin.odinbff.service.SaleService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,7 @@ public class SaleController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<Void> sale(@Valid @RequestBody SaleFormRequest saleRequest,
                                      @Autowired UriComponentsBuilder uriComponent)
             throws NoSuchFieldException, IllegalAccessException {

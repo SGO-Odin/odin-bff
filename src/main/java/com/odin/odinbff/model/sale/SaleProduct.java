@@ -2,9 +2,12 @@ package com.odin.odinbff.model.sale;
 
 import com.odin.odinbff.model.CalculableTotal;
 import com.odin.odinbff.model.product.Product;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
@@ -17,7 +20,12 @@ public final class SaleProduct implements CalculableTotal {
     @Id
     @ManyToOne(optional = false)
     private final Product product;
+    @Column(nullable = false)
+    @Positive
     private final BigDecimal salePrice;
+    @NotNull
+    @Positive
+    @Column(nullable = false)
     private final Short quantity;
 
     /**
@@ -28,17 +36,10 @@ public final class SaleProduct implements CalculableTotal {
         this(null, null, null, null);
     }
 
-    private SaleProduct(Sale sale, Product product, BigDecimal salePrice, Short quantity) {
+    public SaleProduct(Sale sale, Product product, Short quantity, final BigDecimal salePrice) {
         this.sale = sale;
         this.product = product;
         this.salePrice = salePrice;
-        this.quantity = quantity;
-    }
-
-    public SaleProduct(Sale sale, Product product, Short quantity) {
-        this.sale = sale;
-        this.product = product;
-        this.salePrice = product.getCurrentSalePrice();
         this.quantity = quantity;
     }
 

@@ -5,7 +5,7 @@ import com.odin.odinbff.model.serviceorder.ServiceOrderProduct;
 
 import java.math.BigDecimal;
 
-public class ServiceOrderProductResponse {
+public final class ServiceOrderProductResponse {
 
     private final ServiceOrderProduct serviceOrderProduct;
 

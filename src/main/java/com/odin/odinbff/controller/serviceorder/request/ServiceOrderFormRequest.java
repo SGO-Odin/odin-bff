@@ -2,6 +2,7 @@ package com.odin.odinbff.controller.serviceorder.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.odin.odinbff.controller.payment.PaymentFormRequest;
 import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import com.odin.odinbff.repository.ClientRepository;
@@ -43,19 +44,24 @@ public final class ServiceOrderFormRequest {
     @JsonProperty
     private final PrescriptionFormRequest prescription;
 
+    @JsonProperty
+    private final Set<@Valid PaymentFormRequest> payments;
+
     @JsonCreator
     public ServiceOrderFormRequest(final Long client,
                                    final Long number,
                                    final BigDecimal discountValue,
                                    final BigDecimal additionalValue,
                                    final Set<ServiceOrderProductFormRequest> products,
-                                   final PrescriptionFormRequest prescription) {
+                                   final PrescriptionFormRequest prescription,
+                                   final Set<PaymentFormRequest> payments) {
         this.client = client;
         this.number = number;
         this.discountValue = discountValue;
         this.additionalValue = additionalValue;
         this.products = products;
         this.prescription = prescription;
+        this.payments = payments;
     }
 
     public ServiceOrder toModel(final ClientRepository clientRepository,
@@ -77,6 +83,11 @@ public final class ServiceOrderFormRequest {
            soProduct.addToModel(productRepository, serviceOrder);
        });
 
+       if(payments != null) {
+           for (var payment : payments) {
+               payment.addToModel(serviceOrder);
+           }
+       }
 
         return serviceOrder;
     }
