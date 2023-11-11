@@ -38,7 +38,7 @@ public final class History {
     private final Map<String, Object> oldData;
 
     @Convert(converter = LogDiffConverter.class)
-    @Column()
+    @Column(length = 5000)
     private final Map<String, Object> result;
 
     @Column(nullable = false)

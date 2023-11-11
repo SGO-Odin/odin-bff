@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -70,8 +71,8 @@ public class PurveyorController {
     }
 
     @GetMapping
-    public List<PurveyorResponse> getAll() {
-        return purveyorReposioty.findAll().stream().map(PurveyorResponse::new).collect(Collectors.toList());
+    public Set<PurveyorResponse> getAllActives() {
+        return purveyorReposioty.findAllByIsActive(true).stream().map(PurveyorResponse::new).collect(Collectors.toUnmodifiableSet());
     }
 
     @PatchMapping(Api.PATH_PARAM_ID_INACTIVATE)
