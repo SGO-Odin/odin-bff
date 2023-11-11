@@ -2,6 +2,7 @@ package com.odin.odinbff.controller.product;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.odin.odinbff.controller.Api;
@@ -39,11 +40,11 @@ public class ProductController {
 	}
 
 	@GetMapping
-	public List<ProductResponse> getAll(){
-		List<Product> products = productRepository.findAll();
+	public Set<ProductResponse> getAllActives(){
+		Set<Product> products = productRepository.findAllByIsActive(true);
 		return products.stream()
 				.map(ProductResponse::new)
-				.collect(Collectors.toList());
+				.collect(Collectors.toUnmodifiableSet());
 	}
 
 	@GetMapping(Api.PATH_PARAM_ID)
