@@ -83,4 +83,16 @@ public class ServiceOrderController  {
                         .toUri())
                 .build();
     }
+
+    @PatchMapping(Api.ServiceOrder.SERVICE_ORDER_CLOSE_PATH_PARAM)
+    public ResponseEntity<?> close(@PathVariable final Long id) {
+        return serviceOrderRepository.findById(id).map(o -> {
+            try {
+                serviceOrderService.close(o);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+            return ResponseEntity.noContent().build();
+        }).orElse(ResponseEntity.notFound().build());
+    }
 }

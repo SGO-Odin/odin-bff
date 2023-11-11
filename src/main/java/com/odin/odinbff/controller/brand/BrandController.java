@@ -3,6 +3,7 @@ package com.odin.odinbff.controller.brand;
 import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.model.product.Brand;
 import com.odin.odinbff.repository.BrandRepository;
+import com.odin.odinbff.service.ActivableService;
 import com.odin.odinbff.service.BrandService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,14 @@ public final class BrandController {
 
     private final BrandService brandService;
 
-    public BrandController(@Autowired final BrandRepository brandRepository, BrandService brandService) {
+    private final ActivableService activableService;
+
+    public BrandController(@Autowired final BrandRepository brandRepository,
+                           @Autowired final BrandService brandService,
+                           @Autowired final ActivableService activableService) {
         this.brandRepository = brandRepository;
         this.brandService = brandService;
+        this.activableService = activableService;
     }
 
     @GetMapping
@@ -43,8 +49,11 @@ public final class BrandController {
     @PatchMapping(Api.PATH_PARAM_ID_INACTIVATE)
     public ResponseEntity<?> inactivate(@PathVariable final Long id) {
         return brandRepository.findById(id).map(o -> {
-            o.inactivate();
-            brandRepository.save(o);
+            try {
+                activableService.inactivate(o);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
             return ResponseEntity.noContent().build();
         }).orElse(ResponseEntity.notFound().build());
     }
@@ -52,8 +61,11 @@ public final class BrandController {
     @PatchMapping(Api.PATH_PARAM_ID_ACTIVATE)
     public ResponseEntity<?> activate(@PathVariable final Long id) {
         return brandRepository.findById(id).map(o -> {
-            o.activate();
-            brandRepository.save(o);
+            try {
+                activableService.activate(o);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
             return ResponseEntity.noContent().build();
         }).orElse(ResponseEntity.notFound().build());
     }

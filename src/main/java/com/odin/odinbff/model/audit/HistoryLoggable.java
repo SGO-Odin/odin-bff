@@ -2,7 +2,6 @@ package com.odin.odinbff.model.audit;
 
 
 import com.odin.odinbff.model.HasLongId;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
@@ -13,7 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public abstract class HistoryLoggable<T> {
-    Map<String, Object> update(T newer) {
+    @Transient
+    public Map<String, Object> logUpdates(T newer, final boolean applyUpdate) {
         final Map<String, Object> data = new HashMap<>();
 
         attrToUpdateLog().forEach(fieldName -> {
@@ -28,7 +28,8 @@ public abstract class HistoryLoggable<T> {
 
                 if (!thisFieldValue.equals(newerFieldValue)) {
                     setLogDataValue(field, thisFieldValue, data);
-                    field.set(this, newerFieldValue);
+                    if(applyUpdate)
+                        field.set(this, newerFieldValue);
                 }
 
             } catch (NoSuchFieldException e) {
@@ -58,7 +59,7 @@ public abstract class HistoryLoggable<T> {
     }
 
     @Transient
-    Map<String, Object> logOfAllData() throws IllegalAccessException {
+    public Map<String, Object> logOfAllData() throws IllegalAccessException {
 
         Field[] declaredFields = this.getClass().getDeclaredFields();
 

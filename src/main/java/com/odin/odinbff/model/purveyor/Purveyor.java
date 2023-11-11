@@ -1,9 +1,11 @@
 package com.odin.odinbff.model.purveyor;
 
+import com.odin.odinbff.model.Activatable;
 import com.odin.odinbff.model.Email;
 import com.odin.odinbff.model.HasLongId;
 import com.odin.odinbff.model.Phone;
 import com.odin.odinbff.model.address.Address;
+import com.odin.odinbff.model.audit.HistoryLoggable;
 import jakarta.persistence.*;
 
 import java.util.Collections;
@@ -11,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public final class Purveyor implements HasLongId {
+public final class Purveyor extends HistoryLoggable<Purveyor> implements HasLongId, Activatable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
@@ -29,28 +31,32 @@ public final class Purveyor implements HasLongId {
     @OneToMany(mappedBy = "id.purveyor", cascade = CascadeType.ALL)
     private final Set<PurveyorEmail> emails = new HashSet<>();
 
+    @Column(nullable = false)
+    private Boolean isActive;
+
     /**
      * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private Purveyor() {
-        this(null, null, null, null, null);
+        this(null, null, null, null, null, null);
     }
 
     public Purveyor(String tradingName, String companyName, Boolean isLaboratory, Address address) {
-        this(null, tradingName, companyName, isLaboratory, address);
+        this(null, tradingName, companyName, isLaboratory, address, null);
     }
 
     private Purveyor(Long id,
                      String tradingName,
                      String companyName,
                      Boolean isLaboratory,
-                     Address address) {
+                     Address address, Boolean isActive) {
         this.id = id;
         this.tradingName = tradingName;
         this.companyName = companyName;
         this.isLaboratory = isLaboratory;
         this.address = address;
+        this.isActive = isActive;
     }
 
     public void addEmail(final Email email, final Boolean isMain) {
@@ -87,5 +93,20 @@ public final class Purveyor implements HasLongId {
 
     public Set<PurveyorEmail> getEmails() {
         return Collections.unmodifiableSet(emails);
+    }
+
+    @Override
+    public void activate() {
+        isActive = true;
+    }
+
+    @Override
+    public void inactivate() {
+        isActive = false;
+    }
+
+    @Override
+    public Boolean isActive() {
+        return null;
     }
 }

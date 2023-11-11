@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.repository.BrandRepository;
 import com.odin.odinbff.repository.PurveyorReposioty;
+import com.odin.odinbff.service.ActivableService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +25,17 @@ public class ProductController {
 	private final ProductRepository productRepository;
 	private final BrandRepository brandRepository;
 
+	private final ActivableService activableService;
+
+
 	public ProductController(@Autowired final ProductRepository productRepository,
 							 @Autowired final PurveyorReposioty purveyorReposioty,
-							 @Autowired final BrandRepository brandRepository) {
+							 @Autowired final BrandRepository brandRepository,
+							 @Autowired final ActivableService activableService) {
 		this.productRepository = productRepository;
 		this.brandRepository = brandRepository;
 		this.purveyorReposioty = purveyorReposioty;
+		this.activableService = activableService;
 	}
 
 	@GetMapping
@@ -56,5 +62,29 @@ public class ProductController {
 						.buildAndExpand(product.getId())
 						.toUri()
 		).build();
+	}
+
+	@PatchMapping(Api.PATH_PARAM_ID_INACTIVATE)
+	public ResponseEntity<?> inactivate(@PathVariable final Long id) {
+		return productRepository.findById(id).map(o -> {
+			try {
+				activableService.inactivate(o);
+			} catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
+			}
+			return ResponseEntity.noContent().build();
+		}).orElse(ResponseEntity.notFound().build());
+	}
+
+	@PatchMapping(Api.PATH_PARAM_ID_ACTIVATE)
+	public ResponseEntity<?> activate(@PathVariable final Long id) {
+		return productRepository.findById(id).map(o -> {
+			try {
+				activableService.activate(o);
+			} catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
+			}
+			return ResponseEntity.noContent().build();
+		}).orElse(ResponseEntity.notFound().build());
 	}
 }

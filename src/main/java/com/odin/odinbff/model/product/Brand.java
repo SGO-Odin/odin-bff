@@ -1,5 +1,6 @@
 package com.odin.odinbff.model.product;
 
+import com.odin.odinbff.model.Activatable;
 import com.odin.odinbff.model.HasLongId;
 import com.odin.odinbff.model.audit.HistoryLoggable;
 import jakarta.persistence.*;
@@ -14,7 +15,7 @@ import java.util.*;
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = Brand.Constants.CONSTRAINT_UK_BRAND_NAME, columnNames = {"name"})
 })
-public final class Brand extends HistoryLoggable<Brand> implements HasLongId {
+public final class Brand extends HistoryLoggable<Brand> implements HasLongId, Activatable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
@@ -60,6 +61,7 @@ public final class Brand extends HistoryLoggable<Brand> implements HasLongId {
         return name;
     }
 
+    @Override
     public Boolean isActive() {
         return isActive;
     }

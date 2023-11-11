@@ -51,6 +51,8 @@ public final class Api {
         public final static String SERVICE_ORDER_RESOURCE = "/api/service-order";
 
         public final static String SERVICE_ORDER_READ_BY_ID = SERVICE_ORDER_RESOURCE + PATH_PARAM_ID;
+
+        public final static String SERVICE_ORDER_CLOSE_PATH_PARAM = PATH_PARAM_ID + "/close";
     }
 
     public final static class Payment {

@@ -3,7 +3,7 @@ package com.odin.odinbff.controller.client;
 import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.model.client.Client;
 import com.odin.odinbff.repository.*;
-import jakarta.persistence.EntityManager;
+import com.odin.odinbff.service.ActivableService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +30,20 @@ public class ClientController {
 
     private final StateRepository stateRepository;
 
+    private final ActivableService activableService;
+
     public ClientController(@Autowired ClientRepository clientRepository,
                             @Autowired final PublicPlaceRepository publicPlaceRepository,
                             @Autowired final DistrictRepository districtRepository,
                             @Autowired final CityRepository cityRepository,
-                            @Autowired final StateRepository stateRepository) {
+                            @Autowired final StateRepository stateRepository,
+                            @Autowired final ActivableService activableService) {
         this.clientRepository = clientRepository;
         this.publicPlaceRepository = publicPlaceRepository;
         this.districtRepository = districtRepository;
         this.cityRepository = cityRepository;
         this.stateRepository = stateRepository;
+        this.activableService = activableService;
     }
 
     @GetMapping(Api.PATH_PARAM_ID)
@@ -67,23 +71,26 @@ public class ClientController {
 
     @PatchMapping(Api.PATH_PARAM_ID_INACTIVATE)
     public ResponseEntity<?> inactivate(@PathVariable final Long id) {
-//        return clientRepository.findById(id).map(client -> {
-//            client.inactivate();
-//            brandRepository.save(o);
-//            return ResponseEntity.noContent().build();
-//        }).orElse(ResponseEntity.notFound().build());
-        return ResponseEntity.internalServerError().build();
-
+        return clientRepository.findById(id).map(o -> {
+            try {
+                activableService.inactivate(o);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+            return ResponseEntity.noContent().build();
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     @PatchMapping(Api.PATH_PARAM_ID_ACTIVATE)
     public ResponseEntity<?> activate(@PathVariable final Long id) {
-//        return brandRepository.findById(id).map(o -> {
-//            o.activate();
-//            brandRepository.save(o);
-//            return ResponseEntity.noContent().build();
-//        }).orElse(ResponseEntity.notFound().build());
-        return ResponseEntity.internalServerError().build();
+        return clientRepository.findById(id).map(o -> {
+            try {
+                activableService.activate(o);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+            return ResponseEntity.noContent().build();
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping

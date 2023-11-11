@@ -1,10 +1,8 @@
 package com.odin.odinbff.model.client;
 
-import com.odin.odinbff.model.Cpf;
-import com.odin.odinbff.model.Email;
-import com.odin.odinbff.model.HasLongId;
-import com.odin.odinbff.model.Phone;
+import com.odin.odinbff.model.*;
 import com.odin.odinbff.model.address.Address;
+import com.odin.odinbff.model.audit.HistoryLoggable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public final class Client implements HasLongId {
+public final class Client extends HistoryLoggable<Client> implements HasLongId, Activatable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -129,5 +127,20 @@ public final class Client implements HasLongId {
 
     public Set<ClientPhone> getPhones() {
         return Collections.unmodifiableSet(phones);
+    }
+
+    @Override
+    public void activate() {
+        isActive = true;
+    }
+
+    @Override
+    public void inactivate() {
+        isActive = false;
+    }
+
+    @Override
+    public Boolean isActive() {
+        return isActive;
     }
 }

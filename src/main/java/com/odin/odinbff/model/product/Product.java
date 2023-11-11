@@ -3,7 +3,9 @@ package com.odin.odinbff.model.product;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.odin.odinbff.model.Activatable;
 import com.odin.odinbff.model.HasLongId;
+import com.odin.odinbff.model.audit.HistoryLoggable;
 import com.odin.odinbff.model.product.Brand;
 import com.odin.odinbff.model.purveyor.Purveyor;
 import jakarta.persistence.*;
@@ -12,7 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity
-public final class Product implements HasLongId {
+public final class Product extends HistoryLoggable<Product> implements HasLongId, Activatable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
@@ -34,7 +36,7 @@ public final class Product implements HasLongId {
     private final Purveyor purveyor;
 
     @Column(nullable = false)
-    private final Boolean isActive;
+    private Boolean isActive;
 
     @Column(nullable = false)
     private final Boolean isToStockControl;
@@ -54,12 +56,10 @@ public final class Product implements HasLongId {
     private final String location;
 
     @Column(nullable = false)
-    @CreationTimestamp
-    private final LocalDateTime createdOn;
+    private LocalDateTime createdOn;
 
     @Column(nullable = false)
-    @UpdateTimestamp
-    private final LocalDateTime updatedOn;
+    private LocalDateTime updatedOn;
 
     /**
      * Don't use. Don't remove. Requires by JPA.
@@ -142,8 +142,8 @@ public final class Product implements HasLongId {
                 currentStock,
                 minStock,
                 location,
-                LocalDateTime.now(),
-                LocalDateTime.now());
+                null,
+                null);
     }
 
 
@@ -169,6 +169,16 @@ public final class Product implements HasLongId {
 
     public Purveyor getPurveyor() {
         return purveyor;
+    }
+
+    @Override
+    public void activate() {
+        isActive = true;
+    }
+
+    @Override
+    public void inactivate() {
+        isActive = false;
     }
 
     public Boolean isActive() {
@@ -212,5 +222,16 @@ public final class Product implements HasLongId {
         PAIR,
         KIT,
         BOTTLE
+    }
+
+    @PrePersist
+    private void prePersist(){
+        this.createdOn = LocalDateTime.now();
+        this.updatedOn = LocalDateTime.of(createdOn.toLocalDate(), createdOn.toLocalTime());
+    }
+
+    @PreUpdate
+    private void preUpdate(){
+        this.updatedOn = LocalDateTime.of(createdOn.toLocalDate(), createdOn.toLocalTime());
     }
 }

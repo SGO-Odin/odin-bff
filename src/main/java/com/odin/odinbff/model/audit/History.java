@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -50,7 +49,7 @@ public final class History {
     }
 
 
-    private History(Class<?> entity,
+    public History(Class<?> entity,
                     final EventType eventType,
                     final Map<String, Object> oldData,
                     final Map<String, Object> result) {
@@ -74,10 +73,10 @@ public final class History {
     }
 
     public static <Tp extends HistoryLoggable<Tp>> History update (final Tp target,
-                                                            final Tp updated)
+                                                            final Tp updated, final boolean applyUpdates)
             throws NoSuchFieldException, IllegalAccessException {
 
-        return new History(target.getClass(), EventType.UPDATED, target.update(updated), target.logOfAllData());
+        return new History(target.getClass(), EventType.UPDATED, target.logUpdates(updated, applyUpdates), target.logOfAllData());
     }
 
     public String getEntity() {
