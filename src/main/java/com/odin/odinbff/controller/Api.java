@@ -63,6 +63,6 @@ public final class Api {
     }
     
     public final static class Authentication {
-        public final static String AUTHENTICATION_RESOURCE = "/authenticate";
+        public final static String AUTHENTICATION_RESOURCE = "/api/authenticate";
     }
 }
