@@ -43,7 +43,7 @@ public final class User implements UserDetails {
     private User(final UUID id, @NotNull final String username, @NotNull final String password, Roles role) {
         this.id = id;
         this.username = username;
-        this.password = password == null ? null : new BCryptPasswordEncoder().encode(password);
+        this.password = password;
         this.role = role;
     }
 
