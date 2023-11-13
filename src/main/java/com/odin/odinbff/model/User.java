@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
@@ -42,7 +43,7 @@ public final class User implements UserDetails {
     private User(final UUID id, @NotNull final String username, @NotNull final String password, Roles role) {
         this.id = id;
         this.username = username;
-        this.password = password;
+        this.password = password == null ? null : new BCryptPasswordEncoder().encode(password);
         this.role = role;
     }
 
