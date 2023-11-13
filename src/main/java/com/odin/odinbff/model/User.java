@@ -29,22 +29,25 @@ public final class User implements UserDetails {
     @Pattern(regexp = Constants.VALIDATION_PASSWORD_PATTERN)
     private final String password;
 
+    private final Roles role;
+
     /**
      * Don't use. Don't remove. Requires by JPA.
      */
     @Deprecated
     private User() {
-        this(null,null, null);
+        this(null,null, null, null);
     }
 
-    private User(final UUID id, @NotNull final String username, @NotNull final String password) {
+    private User(final UUID id, @NotNull final String username, @NotNull final String password, Roles role) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
-    public User(@NotNull final String username, @NotNull final String password) {
-        this(null, username, password);
+    public User(@NotNull final String username, @NotNull final String password, @NotNull Roles role) {
+        this(null, username, password, role);
     }
 
     public UUID getId() {
@@ -84,6 +87,11 @@ public final class User implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public enum Roles {
+        MANAGER,
+        ATTENDANT
     }
 
     public final static class Constants {

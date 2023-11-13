@@ -36,13 +36,37 @@ public final class AuthenticationService implements UserDetailsService {
 
         final Date expiration = new Date(new Date().getTime() + Long.parseLong(this.expiration));
 
-        final SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-
         return Jwts.builder().issuer("Odin")
                 .issuedAt(expiration)
                 .subject(authenticatedUser.getId().toString())
-                .signWith(key)
+                .signWith(getKey())
                 .compact();
+    }
+
+    private SecretKey getKey() {
+        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public Boolean isValid(String token) {
+        try {
+            getUserUUIDFromToken(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @param token
+     * @return
+     */
+    public String getUserUUIDFromToken(String token)  {
+        return Jwts.parser().verifyWith(getKey()).
+                build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
     }
 
     @Override
