@@ -38,7 +38,7 @@ public final class AuthenticationService implements UserDetailsService {
 
         return Jwts.builder().issuer("Odin")
                 .issuedAt(expiration)
-                .subject(authenticatedUser.getId().toString())
+                .subject(authenticatedUser.getUsername())
                 .signWith(getKey())
                 .compact();
     }
