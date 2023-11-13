@@ -23,7 +23,6 @@ public class AuthenticationController {
     }
 
     @PostMapping
-    @CrossOrigin(origins = "*")
     public ResponseEntity<String> authenticate(@Valid @RequestBody LoginFormRequest loginFormRequest) {
         final var user = loginFormRequest.converte();
 
