@@ -61,4 +61,8 @@ public final class Api {
 
         public final static String PAYMENT_READ_BY_ID = PAYMENT_RESOURCE + PATH_PARAM_ID;
     }
+    
+    public final static class Authentication {
+        public final static String AUTHENTICATION_RESOURCE = "/authenticate";
+    }
 }

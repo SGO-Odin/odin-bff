@@ -1,10 +1,8 @@
 package com.odin.odinbff.model.serviceorder;
 
-import com.odin.odinbff.model.HasLongId;
 import com.odin.odinbff.model.audit.HistoryLoggable;
 import com.odin.odinbff.model.product.Product;
 import jakarta.persistence.*;
-import org.jetbrains.annotations.Contract;
 
 import java.math.BigDecimal;
 import java.util.Set;
