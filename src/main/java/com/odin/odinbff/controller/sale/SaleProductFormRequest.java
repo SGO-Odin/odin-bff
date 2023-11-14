@@ -3,7 +3,6 @@ package com.odin.odinbff.controller.sale;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.odinbff.model.sale.Sale;
-import com.odin.odinbff.model.sale.SaleProduct;
 import com.odin.odinbff.repository.ProductRepository;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

@@ -9,8 +9,6 @@ import com.odin.odinbff.model.audit.HistoryLoggable;
 import com.odin.odinbff.model.product.Brand;
 import com.odin.odinbff.model.purveyor.Purveyor;
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity

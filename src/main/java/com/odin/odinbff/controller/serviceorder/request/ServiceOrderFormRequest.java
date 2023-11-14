@@ -11,7 +11,6 @@ import com.odin.odinbff.repository.ProductRepository;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.Valid;
-import jakarta.validation.ValidationException;
 import jakarta.validation.constraints.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;

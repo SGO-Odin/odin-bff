@@ -3,7 +3,6 @@ package com.odin.odinbff.controller.sale;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.odinbff.model.sale.Sale;
-import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import com.odin.odinbff.repository.ClientRepository;
 import com.odin.odinbff.repository.ProductRepository;
 import com.odin.odinbff.repository.ServiceOrderRepository;

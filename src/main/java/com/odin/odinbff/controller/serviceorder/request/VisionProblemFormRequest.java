@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odin.odinbff.model.prescription.Prescription;
 import com.odin.odinbff.model.prescription.VisionProblem;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public final class VisionProblemFormRequest {

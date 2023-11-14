@@ -48,7 +48,7 @@ public final class ServiceOrder extends HistoryLoggable<ServiceOrder>
     private LocalDateTime updatedOn;
 
     @OneToMany(mappedBy = "serviceOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<ServiceOrderProduct> products = new HashSet<>();
+    private final Set<ServiceOrderProduct> products = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private final Set<Payment> payments = new HashSet<>();

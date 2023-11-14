@@ -1,11 +1,8 @@
 package com.odin.odinbff.controller.serviceorder.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.odin.odinbff.controller.product.ProductResponse;
 import com.odin.odinbff.controller.serviceorder.response.PrescriptionResponse;
-import com.odin.odinbff.model.sale.Payment;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
-import jakarta.transaction.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

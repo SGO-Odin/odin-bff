@@ -6,7 +6,6 @@ import com.odin.odinbff.model.Phone;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import org.springframework.format.annotation.NumberFormat;
 
 public final class PhoneFormRequest {
     @JsonProperty

@@ -1,6 +1,5 @@
 package com.odin.odinbff.service;
 
-import com.odin.odinbff.controller.Api;
 import com.odin.odinbff.model.audit.History;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
 import com.odin.odinbff.model.serviceorder.ServiceOrderProduct;
@@ -8,10 +7,7 @@ import com.odin.odinbff.repository.HistoryRepository;
 import com.odin.odinbff.repository.ServiceOrderRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Map;
 

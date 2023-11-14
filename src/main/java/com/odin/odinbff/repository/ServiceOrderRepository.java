@@ -1,7 +1,6 @@
 package com.odin.odinbff.repository;
 
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
-import jakarta.annotation.Nullable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

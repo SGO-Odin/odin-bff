@@ -14,7 +14,7 @@ import java.io.IOException;
 public class CORSFilter  implements Filter {
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException, IOException {
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request =  (HttpServletRequest) req;
         response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:3000");

@@ -4,7 +4,6 @@ import com.odin.odinbff.model.product.Brand;
 import com.odin.odinbff.model.audit.History;
 import com.odin.odinbff.repository.BrandRepository;
 import com.odin.odinbff.repository.HistoryRepository;
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
