@@ -3,6 +3,7 @@ package com.odin.odinbff.configuration.security;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -13,11 +14,14 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CORSFilter  implements Filter {
 
+    @Value("${cors.origins}")
+    private String corsOrigins;
+
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request =  (HttpServletRequest) req;
-        response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
+        response.setHeader("Access-Control-Allow-Origin", corsOrigins);
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE, PATCH");
         response.setHeader("Access-Control-Max-Age", "3600");

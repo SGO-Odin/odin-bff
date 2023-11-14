@@ -60,7 +60,7 @@ public class SaleController {
 
     @GetMapping
     @Transactional
-    public Page<Sale> getAllPageable(Pageable pageable) {
-        return saleRepository.findAll(pageable);
+    public Page<SaleResponse> getAllPageable(Pageable pageable) {
+        return saleRepository.findAll(pageable).map(SaleResponse::new);
     }
 }
