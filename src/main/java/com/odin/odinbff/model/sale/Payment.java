@@ -3,6 +3,7 @@ package com.odin.odinbff.model.sale;
 import com.odin.odinbff.model.HasLongId;
 import com.odin.odinbff.model.audit.HistoryLoggable;
 import com.odin.odinbff.model.serviceorder.ServiceOrder;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -53,6 +54,7 @@ public final class Payment extends HistoryLoggable<Payment> implements HasLongId
         return quantityInstallments;
     }
 
+    @Nullable
     public Sale getSale() {
         return sale;
     }
@@ -68,6 +70,7 @@ public final class Payment extends HistoryLoggable<Payment> implements HasLongId
     }
 
 
+    @Nullable
     public ServiceOrder getServiceOrder() {
         return serviceOrder;
     }

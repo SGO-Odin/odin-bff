@@ -62,8 +62,8 @@ public class SaleController {
     }
 
     @GetMapping
-    @Transactional
-    public ResponseEntity<List<SaleResponse>> getAllPageable() {
-        return ResponseEntity.ok(saleRepository.findAll().stream().map(SaleResponse::new).collect(Collectors.toList()));
+    public ResponseEntity<List<SaleResponse>> getAll() {
+        final var sales = saleRepository.findAll().stream().map(SaleResponse::new).collect(Collectors.toList());
+        return ResponseEntity.ok(sales);
     }
 }

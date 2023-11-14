@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class SaleResponse {
+public final class SaleResponse {
 
     private final Sale sale;
 
@@ -22,10 +22,6 @@ public class SaleResponse {
         return sale.getId();
     }
 
-
-    public LocalDateTime getCreatedOn() {
-        return sale.getCreatedOn();
-    }
 
     @Nullable
     public Long getServiceOrderId() {
@@ -39,10 +35,6 @@ public class SaleResponse {
     public Set<SaleProductResponse> getSaleProducts() {
         return sale.getSaleProducts().stream().map(SaleProductResponse::new)
                 .collect(Collectors.toUnmodifiableSet());
-    }
-
-    public BigDecimal calculateFinalPriceValue () {
-        return sale.calculateFinalPriceValue();
     }
 
     public Set<PaymentResponse> getSalePayments() {

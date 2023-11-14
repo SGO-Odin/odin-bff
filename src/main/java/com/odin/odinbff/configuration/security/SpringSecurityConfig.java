@@ -31,8 +31,8 @@ public class SpringSecurityConfig {
     @Autowired
     private SpringSecurityFilter securityFilter;
 
-    @Value("${cors.origins}")
-    private String corsOrigins;
+        @Value("${cors.origins}")
+        private String corsOrigins;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {

@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class PaymentResponse {
+public final class PaymentResponse {
     private final Payment payment;
 
     public PaymentResponse(Payment payment) {
@@ -20,7 +20,7 @@ public class PaymentResponse {
     }
 
     public Long getSale() {
-        return payment.getSale().getId();
+        return payment.getSale() == null ? null : payment.getSale().getId();
     }
 
     public Long getId() {
@@ -29,7 +29,7 @@ public class PaymentResponse {
 
 
     public Long getServiceOrder() {
-        return payment.getServiceOrder().getId();
+        return payment.getServiceOrder() == null? null : payment.getServiceOrder().getId();
     }
 
     public Payment.Type getType() {
@@ -38,10 +38,6 @@ public class PaymentResponse {
 
     public BigDecimal getAmount() {
         return payment.getAmount();
-    }
-
-    public BigDecimal[] getInstallmentValues() {
-        return payment.getInstallmentValues();
     }
 
     public Boolean isInstallments() {

@@ -5,7 +5,7 @@ import com.odin.odinbff.model.sale.SaleProduct;
 
 import java.math.BigDecimal;
 
-public class SaleProductResponse {
+public final class SaleProductResponse {
     private final SaleProduct saleProduct;
 
 
