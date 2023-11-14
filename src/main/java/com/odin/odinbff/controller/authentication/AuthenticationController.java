@@ -23,7 +23,6 @@ public class AuthenticationController {
     }
 
     @PostMapping
-    @CrossOrigin(origins = "http://127.0.0.1:3000")
     public ResponseEntity<String> authenticate(@Valid @RequestBody LoginFormRequest loginFormRequest) {
         final var user = loginFormRequest.converte();
 

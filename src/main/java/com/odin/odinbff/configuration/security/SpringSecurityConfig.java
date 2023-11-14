@@ -2,12 +2,15 @@ package com.odin.odinbff.configuration.security;
 
 import com.odin.odinbff.controller.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +32,9 @@ public class SpringSecurityConfig {
     @Autowired
     private SpringSecurityFilter securityFilter;
 
+    @Value("${cors.origins}")
+    private String corsOrigins;
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
@@ -41,6 +47,7 @@ public class SpringSecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+                    req.requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**" ).permitAll();
                     req.requestMatchers(HttpMethod.POST, Api.Authentication.AUTHENTICATION_RESOURCE).permitAll();
                     req.anyRequest().authenticated();
                 })
@@ -51,7 +58,7 @@ public class SpringSecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://127.0.0.1:3000"));
+        configuration.setAllowedOrigins(List.of(corsOrigins));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "PATCH", "OPTIONS"));
         configuration.setExposedHeaders(List.of("Content-Type", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method",
                 "Access-Control-Request-Headers, Access-Control-Allow-Origin, Access-Control-Allow-Credentials"));
@@ -59,6 +66,14 @@ public class SpringSecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> {
+            web.ignoring().requestMatchers("/**.html",  "/v2/api-docs", "/webjars/**",
+                    "/configuration/**", "/swagger-resources/**", "/css/**", "/**.ico", "/js/**");
+        };
     }
 
     @Bean
