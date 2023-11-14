@@ -16,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping(Api.Sale.SALE)
 public class SaleController {
@@ -60,7 +63,7 @@ public class SaleController {
 
     @GetMapping
     @Transactional
-    public Page<SaleResponse> getAllPageable(Pageable pageable) {
-        return saleRepository.findAll(pageable).map(SaleResponse::new);
+    public ResponseEntity<List<SaleResponse>> getAllPageable() {
+        return ResponseEntity.ok(saleRepository.findAll().stream().map(SaleResponse::new).collect(Collectors.toList()));
     }
 }
